@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>361 Cafe — กาแฟที่ตื่นเต้นกว่านี้</title>
+  <meta name="description" content="361 Cafe คาเฟ่สไตล์โมเดิร์น บรรยากาศขาวดำ กาแฟพิเศษ เบเกอรี่สด ใจกลางสีลม กรุงเทพฯ">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;700;900&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@0.460.0"></script>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --glacier: #F4F3EE;
+      --charcoal: #1C1C1A;
+      --umber: #9B7A5B;
+      --umber-lt: #B8967A;
+      --white: #FAFAF7;
+      --black: #0A0A09;
+      --border-faint: rgba(28,28,26,0.1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'IBM Plex Sans Thai', 'Sukhumvit Set', sans-serif;
+      background: var(--glacier);
+      color: var(--charcoal);
+      line-height: 1.8;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 1.75rem;
+      transition: padding 0.35s ease, background 0.35s ease;
+    }
+    #nav.scrolled {
+      background: var(--charcoal);
+      padding: 0.85rem 1.75rem;
+    }
+
+    .nav-logo {
+      font-family: 'Roboto Slab', serif;
+      font-size: 1.25rem; font-weight: 900;
+      color: var(--white); text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    #nav:not(.scrolled) .nav-logo { color: var(--charcoal); }
+
+    .nav-links {
+      display: none; list-style: none;
+      gap: 2.5rem; align-items: center;
+    }
+    @media (min-width: 768px) { .nav-links { display: flex; } }
+
+    .nav-links a {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.78rem; letter-spacing: 0.18em;
+      text-transform: lowercase;
+      color: var(--charcoal); text-decoration: none;
+      transition: color 0.25s;
+    }
+    #nav.scrolled .nav-links a { color: rgba(250,250,247,0.75); }
+    .nav-links a:hover { color: var(--umber); }
+
+    .nav-r {
+      display: flex; align-items: center; gap: 1.25rem;
+    }
+
+    .lang-sw {
+      display: flex; align-items: center; gap: 0.3rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem; letter-spacing: 0.06em;
+      color: var(--charcoal); line-height: 1;
+      padding: 0.5rem 0.1rem;
+      transition: color 0.25s;
+      user-select: none;
+    }
+    #nav.scrolled .lang-sw { color: rgba(250,250,247,0.6); }
+    .lang-sw:hover { color: var(--umber); }
+
+    .hamburger {
+      display: flex; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 6px;
+    }
+    @media (min-width: 768px) { .hamburger { display: none; } }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--charcoal); transition: all 0.3s;
+    }
+    #nav.scrolled .hamburger span { background: var(--white); }
+
+    /* mobile menu */
+    .m-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.55); z-index: 1800;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .m-overlay.open { opacity: 1; pointer-events: all; }
+
+    .m-menu {
+      position: fixed; top: 0; right: -100%;
+      width: 72vw; max-width: 300px; height: 100dvh;
+      background: var(--charcoal); z-index: 1900;
+      padding: 5rem 2rem 3rem;
+      transition: right 0.4s cubic-bezier(0.23,1,0.32,1);
+      display: flex; flex-direction: column; gap: 2.5rem;
+    }
+    .m-menu.open { right: 0; }
+
+    .m-close {
+      position: absolute; top: 1.4rem; right: 1.4rem;
+      color: rgba(250,250,247,0.6); cursor: pointer;
+    }
+
+    .m-menu ul { list-style: none; display: flex; flex-direction: column; gap: 1.75rem; }
+    .m-menu ul a {
+      font-family: 'Roboto Slab', serif;
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--white); text-decoration: none;
+      transition: color 0.25s;
+    }
+    .m-menu ul a:hover { color: var(--umber-lt); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100svh; position: relative;
+      display: flex; align-items: flex-end;
+      overflow: hidden; background: var(--charcoal);
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1565650839149-2c48a094196c?w=1400&h=900&fit=crop') center/cover no-repeat;
+      opacity: 0.32; transform: scale(1.07);
+      animation: hzoom 14s ease-out forwards;
+    }
+    @keyframes hzoom { to { transform: scale(1); } }
+
+    .hero-body {
+      position: relative; z-index: 2;
+      padding: 7rem 1.75rem 4.5rem; width: 100%;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem; letter-spacing: 0.3em;
+      text-transform: lowercase; color: var(--umber-lt);
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block;
+      width: 36px; height: 1px; background: var(--umber-lt);
+    }
+
+    .hero-h1 {
+      font-family: 'Roboto Slab', serif;
+      font-weight: 900; line-height: 1.35;
+      font-size: clamp(3.2rem, 14vw, 8.5rem);
+      color: var(--white);
+      padding-top: 0.15em;
+    }
+    .hero-h1 .l2 {
+      display: block;
+      padding-left: clamp(2rem, 10vw, 7rem);
+    }
+    .hero-h1 .slant {
+      display: inline-block;
+      transform: rotate(-2.5deg) translateY(0.06em);
+      color: var(--umber-lt);
+    }
+
+    .hero-sub {
+      margin-top: 2.25rem;
+      font-size: 0.93rem; line-height: 1.9;
+      color: rgba(250,250,247,0.58);
+      max-width: 360px;
+    }
+
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.78rem; letter-spacing: 0.2em;
+      text-transform: lowercase;
+      background: var(--glacier); color: var(--charcoal);
+      padding: 1rem 2rem; text-decoration: none;
+      border: none; transition: background 0.3s, color 0.3s, gap 0.3s;
+    }
+    .hero-cta:hover { background: var(--umber); color: var(--white); gap: 1.2rem; }
+
+    .scroll-sig {
+      position: absolute; bottom: 2.5rem; right: 2rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      writing-mode: vertical-rl;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.6rem; letter-spacing: 0.25em;
+      text-transform: lowercase; color: rgba(250,250,247,0.3);
+    }
+    .scroll-bar {
+      width: 1px; height: 54px;
+      background: rgba(250,250,247,0.2);
+      overflow: hidden; position: relative;
+    }
+    .scroll-bar::after {
+      content: ''; position: absolute;
+      top: -100%; left: 0; width: 100%; height: 100%;
+      background: var(--umber-lt);
+      animation: sbar 1.9s ease-in-out infinite;
+    }
+    @keyframes sbar { 0%{top:-100%} 100%{top:100%} }
+
+    @media (min-width: 768px) {
+      .hero-body { padding: 9rem 4rem 5rem; }
+    }
+    @media (min-width: 1024px) {
+      .hero-body { padding: 11rem 6rem 6rem; }
+    }
+
+    /* ── MANIFESTO ── */
+    .manifesto {
+      padding: 6rem 1.75rem 5rem;
+      background: var(--glacier);
+      position: relative; overflow: hidden;
+    }
+    .manifesto-ghost {
+      position: absolute; top: -3rem; right: -2rem;
+      font-family: 'Roboto Slab', serif;
+      font-size: clamp(8rem, 38vw, 26rem);
+      font-weight: 900; line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(28,28,26,0.06);
+      pointer-events: none; user-select: none;
+    }
+
+    .sec-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem; letter-spacing: 0.28em;
+      text-transform: lowercase; color: var(--umber);
+      display: flex; align-items: center; gap: 0.6rem;
+      margin-bottom: 2rem;
+    }
+    .sec-label .n {
+      font-size: 0.62rem; opacity: 0.45;
+    }
+
+    .manifesto-text {
+      font-family: 'Roboto Slab', serif;
+      font-size: clamp(1.55rem, 5vw, 2.6rem);
+      font-weight: 300; line-height: 1.7;
+      max-width: 680px; position: relative; z-index: 1;
+      padding-top: 0.15em;
+    }
+    .manifesto-text strong {
+      font-weight: 900; color: var(--charcoal);
+    }
+
+    .manifesto-img-wrap {
+      margin-top: 3rem; position: relative;
+      z-index: 1;
+    }
+    .manifesto-img {
+      width: 100%; height: clamp(220px, 45vw, 450px);
+      object-fit: cover; display: block;
+      filter: grayscale(12%);
+      transform: rotate(1.2deg);
+      transition: transform 0.55s ease;
+    }
+    .manifesto-img:hover { transform: rotate(0deg) scale(1.01); }
+    .manifesto-cap {
+      position: absolute; bottom: -1.25rem; left: 0.75rem;
+      background: var(--umber); color: var(--white);
+      padding: 0.5rem 1rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.66rem; letter-spacing: 0.2em;
+      text-transform: lowercase;
+    }
+
+    @media (min-width: 768px) { .manifesto { padding: 8rem 4rem 7rem; } }
+    @media (min-width: 1024px) { .manifesto { padding: 10rem 6rem 8rem; } }
+
+    /* ── THIN RULE ── */
+    .rule {
+      height: 1px; background: var(--charcoal);
+      margin: 0 1.75rem; position: relative;
+    }
+    .rule::after {
+      content: ''; position: absolute;
+      right: 0; top: -3px;
+      width: 7px; height: 7px;
+      background: var(--umber); border-radius: 50%;
+    }
+    @media (min-width: 768px) { .rule { margin: 0 4rem; } }
+    @media (min-width: 1024px) { .rule { margin: 0 6rem; } }
+
+    /* ── MENU / ACCORDION ── */
+    .menu-sec {
+      padding: 6rem 1.75rem;
+      background: var(--charcoal); color: var(--glacier);
+      position: relative; overflow: hidden;
+    }
+    .menu-sec::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--umber), transparent);
+    }
+
+    .sec-label-lt {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem; letter-spacing: 0.28em;
+      text-transform: lowercase; color: var(--umber-lt);
+      display: flex; align-items: center; gap: 0.6rem;
+      margin-bottom: 2rem;
+    }
+    .sec-label-lt .n { font-size: 0.62rem; opacity: 0.4; }
+
+    .sec-h2 {
+      font-family: 'Roboto Slab', serif;
+      font-weight: 900; line-height: 1.4;
+      font-size: clamp(2.4rem, 10vw, 5.5rem);
+      margin-bottom: 3.5rem;
+      padding-top: 0.1em;
+    }
+
+    .accordion { border-top: 1px solid rgba(244,243,238,0.12); }
+    .acc-item { border-bottom: 1px solid rgba(244,243,238,0.12); }
+
+    .acc-hd {
+      display: flex; align-items: center;
+      gap: 1rem; padding: 1.4rem 0;
+      cursor: pointer;
+    }
+    .acc-hd:hover .acc-name { color: var(--umber-lt); }
+
+    .acc-num {
+      font-family: 'Roboto Slab', serif;
+      font-size: 0.72rem; font-weight: 300;
+      color: rgba(244,243,238,0.25); min-width: 2rem;
+    }
+    .acc-name {
+      font-family: 'Roboto Slab', serif;
+      font-size: clamp(1.05rem, 3.5vw, 1.45rem);
+      font-weight: 700; flex: 1;
+      color: var(--glacier); transition: color 0.25s;
+    }
+    .acc-price {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem; color: var(--umber-lt); white-space: nowrap;
+    }
+    .acc-icon {
+      color: rgba(244,243,238,0.35);
+      flex-shrink: 0; transition: transform 0.3s;
+    }
+    .acc-item.open .acc-icon { transform: rotate(45deg); }
+
+    .acc-body {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.42s cubic-bezier(0.23,1,0.32,1);
+    }
+    .acc-item.open .acc-body { max-height: 280px; }
+
+    .acc-inner {
+      display: grid; grid-template-columns: 1fr;
+      gap: 1.5rem; padding-bottom: 2rem;
+    }
+    @media (min-width: 580px) {
+      .acc-inner { grid-template-columns: 1fr auto; align-items: start; }
+    }
+
+    .acc-desc {
+      font-size: 0.88rem; line-height: 1.85;
+      color: rgba(244,243,238,0.55); max-width: 460px;
+    }
+    .acc-img {
+      width: 110px; height: 110px;
+      object-fit: cover; filter: grayscale(18%);
+      transform: rotate(-2deg); flex-shrink: 0;
+    }
+
+    @media (min-width: 768px) { .menu-sec { padding: 8rem 4rem; } }
+    @media (min-width: 1024px) { .menu-sec { padding: 10rem 6rem; } }
+
+    /* ── SIGNATURE H-SCROLL ── */
+    .sig-sec {
+      padding: 6rem 0;
+      background: var(--glacier); overflow: hidden;
+    }
+    .sig-head { padding: 0 1.75rem; margin-bottom: 2.5rem; }
+
+    .sig-track {
+      display: flex; gap: 2px;
+      overflow-x: auto; padding: 0 1.75rem 1.5rem;
+      scrollbar-width: none; -ms-overflow-style: none;
+      cursor: grab;
+    }
+    .sig-track::-webkit-scrollbar { display: none; }
+    .sig-track:active { cursor: grabbing; }
+
+    .sig-card {
+      flex: 0 0 clamp(260px, 80vw, 320px);
+      background: var(--charcoal);
+      overflow: hidden; position: relative;
+      transition: transform 0.4s ease;
+    }
+    .sig-card:hover { transform: translateY(-7px); }
+
+    .sig-card-img {
+      width: 100%; height: 210px;
+      object-fit: cover; display: block;
+      filter: grayscale(12%);
+      transition: transform 0.55s ease;
+    }
+    .sig-card:hover .sig-card-img { transform: scale(1.05); }
+
+    .sig-card-body { padding: 1.4rem; color: var(--glacier); }
+    .sig-tag {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.64rem; letter-spacing: 0.22em;
+      text-transform: lowercase; color: var(--umber-lt);
+      margin-bottom: 0.6rem;
+    }
+    .sig-name {
+      font-family: 'Roboto Slab', serif;
+      font-size: 1.25rem; font-weight: 700;
+      line-height: 1.3; margin-bottom: 0.5rem;
+    }
+    .sig-note {
+      font-size: 0.84rem; line-height: 1.85;
+      color: rgba(244,243,238,0.5);
+    }
+    .sig-price {
+      display: inline-block; margin-top: 1.2rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.76rem; letter-spacing: 0.1em;
+      border: 1px solid rgba(244,243,238,0.18);
+      padding: 0.45rem 0.9rem; color: var(--glacier);
+      transition: all 0.3s;
+    }
+    .sig-card:hover .sig-price {
+      background: var(--umber); border-color: var(--umber);
+    }
+
+    @media (min-width: 768px) {
+      .sig-head { padding: 0 4rem; }
+      .sig-track { padding: 0 4rem 1.5rem; }
+    }
+    @media (min-width: 1024px) {
+      .sig-head { padding: 0 6rem; }
+      .sig-track { padding: 0 6rem 1.5rem; }
+    }
+
+    /* ── STORY ── */
+    .story-sec {
+      padding: 6rem 1.75rem;
+      background: var(--charcoal); color: var(--glacier);
+    }
+    .story-grid {
+      display: grid; grid-template-columns: 1fr;
+      gap: 3.5rem;
+    }
+    @media (min-width: 768px) {
+      .story-grid { grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    }
+
+    .story-body {
+      font-size: 0.93rem; line-height: 1.9;
+      color: rgba(244,243,238,0.58);
+    }
+    .story-body + .story-body { margin-top: 1.25rem; }
+
+    .stat-row {
+      display: flex; gap: 2.5rem;
+      margin-top: 3rem; padding-top: 2rem;
+      border-top: 1px solid rgba(244,243,238,0.1);
+    }
+    .stat-num {
+      font-family: 'Roboto Slab', serif;
+      font-size: 2.4rem; font-weight: 900;
+      color: var(--umber-lt); line-height: 1;
+    }
+    .stat-lbl {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.66rem; letter-spacing: 0.15em;
+      text-transform: lowercase;
+      color: rgba(244,243,238,0.35); margin-top: 0.35rem;
+    }
+
+    .story-imgs { position: relative; }
+    .story-img-main {
+      width: 100%; height: clamp(300px, 55vw, 480px);
+      object-fit: cover; display: block;
+      filter: grayscale(18%);
+    }
+    .story-img-off {
+      position: absolute; bottom: -2rem; right: -0.75rem;
+      width: 42%; aspect-ratio: 4/3;
+      object-fit: cover; filter: grayscale(18%);
+      border: 4px solid var(--charcoal);
+      display: block;
+    }
+
+    @media (min-width: 768px) { .story-sec { padding: 8rem 4rem; } }
+    @media (min-width: 1024px) { .story-sec { padding: 10rem 6rem; } }
+
+    /* ── FOOD ── */
+    .food-sec {
+      padding: 6rem 1.75rem;
+      background: var(--glacier);
+    }
+    .food-list { margin-top: 0; }
+    .food-item {
+      display: grid; grid-template-columns: 3rem 1fr;
+      gap: 1.25rem; padding: 1.8rem 0;
+      border-bottom: 1px solid var(--border-faint);
+      align-items: start;
+      transition: padding 0.25s, background 0.25s;
+    }
+    .food-item:hover {
+      background: rgba(155,122,91,0.05);
+      padding: 1.8rem 1rem;
+      margin: 0 -1rem;
+    }
+    .food-n {
+      font-family: 'Roboto Slab', serif;
+      font-size: 0.72rem; font-weight: 300;
+      color: var(--umber); padding-top: 0.25rem;
+    }
+    .food-name {
+      font-family: 'Roboto Slab', serif;
+      font-size: clamp(1.05rem, 3.5vw, 1.35rem);
+      font-weight: 700; margin-bottom: 0.35rem;
+    }
+    .food-desc {
+      font-size: 0.87rem; line-height: 1.85;
+      color: rgba(28,28,26,0.55);
+    }
+    .food-price {
+      margin-top: 0.4rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.74rem; letter-spacing: 0.1em;
+      color: var(--umber);
+    }
+
+    @media (min-width: 768px) { .food-sec { padding: 8rem 4rem; } }
+    @media (min-width: 1024px) { .food-sec { padding: 10rem 6rem; } }
+
+    /* ── ATMOSPHERE ── */
+    .atmos-sec {
+      padding: 6rem 0;
+      background: var(--glacier); overflow: hidden;
+    }
+    .atmos-head { padding: 0 1.75rem; margin-bottom: 2rem; }
+
+    .atmos-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    .ag-item { position: relative; overflow: hidden; }
+    .ag-item:first-child { grid-row: span 2; }
+    .ag-item img {
+      width: 100%; height: 100%; min-height: 180px;
+      object-fit: cover; display: block;
+      filter: grayscale(15%);
+      transition: transform 0.55s ease, filter 0.55s ease;
+    }
+    .ag-item:first-child img { min-height: 362px; }
+    .ag-item:hover img { transform: scale(1.04); filter: grayscale(0%); }
+
+    .atmos-quote {
+      margin: 3rem 1.75rem 0;
+      padding: 2.25rem 0 0 1.75rem;
+      border-left: 3px solid var(--umber);
+    }
+    .atmos-q-text {
+      font-family: 'Roboto Slab', serif;
+      font-size: clamp(1.15rem, 4vw, 1.7rem);
+      font-weight: 300; line-height: 1.6; font-style: italic;
+    }
+    .atmos-q-attr {
+      margin-top: 0.9rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem; letter-spacing: 0.2em;
+      text-transform: lowercase; color: var(--umber);
+    }
+
+    @media (min-width: 768px) {
+      .atmos-head { padding: 0 4rem; }
+      .atmos-quote { margin: 3rem 4rem 0; }
+    }
+    @media (min-width: 1024px) {
+      .atmos-head { padding: 0 6rem; }
+      .atmos-quote { margin: 3rem 6rem 0; }
+    }
+
+    /* ── LOCATION ── */
+    .loc-sec {
+      padding: 6rem 1.75rem;
+      background: var(--charcoal); color: var(--glacier);
+    }
+    .loc-grid {
+      display: grid; grid-template-columns: 1fr;
+      gap: 4.5rem;
+    }
+    @media (min-width: 768px) {
+      .loc-grid { grid-template-columns: 1fr 1fr; gap: 5rem; }
+    }
+
+    .hours-tbl {
+      width: 100%; border-collapse: collapse;
+    }
+    .hours-tbl tr { border-bottom: 1px solid rgba(244,243,238,0.09); }
+    .hours-tbl td {
+      padding: 1rem 0; font-size: 0.9rem; line-height: 1.8;
+      color: rgba(244,243,238,0.65);
+    }
+    .hours-tbl td:last-child {
+      text-align: right;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem; letter-spacing: 0.08em;
+      color: var(--umber-lt);
+    }
+    .hours-note {
+      margin-top: 1.25rem; font-size: 0.78rem;
+      color: rgba(244,243,238,0.3); line-height: 1.8;
+    }
+
+    .loc-list {
+      display: flex; flex-direction: column; gap: 1.75rem;
+    }
+    .loc-row {
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .loc-ico { color: var(--umber-lt); flex-shrink: 0; margin-top: 0.15rem; }
+    .loc-lbl {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.63rem; letter-spacing: 0.2em;
+      text-transform: lowercase;
+      color: rgba(244,243,238,0.3); margin-bottom: 0.25rem;
+    }
+    .loc-val {
+      font-size: 0.92rem; color: var(--glacier); line-height: 1.8;
+    }
+
+    .loc-map-box {
+      margin-top: 2rem; width: 100%; height: 190px;
+      position: relative; overflow: hidden;
+    }
+    .loc-map-box img {
+      width: 100%; height: 100%; object-fit: cover;
+      opacity: 0.45; filter: grayscale(70%) contrast(1.15);
+      display: block;
+    }
+    .loc-map-label {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.5rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem; letter-spacing: 0.2em;
+      text-transform: lowercase; color: var(--umber-lt);
+    }
+
+    @media (min-width: 768px) { .loc-sec { padding: 8rem 4rem; } }
+    @media (min-width: 1024px) { .loc-sec { padding: 10rem 6rem; } }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      color: var(--glacier);
+      padding: 4rem 1.75rem 2rem;
+    }
+    .ft-top {
+      display: grid; grid-template-columns: 1fr;
+      gap: 3rem; padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(244,243,238,0.07);
+    }
+    @media (min-width: 768px) {
+      .ft-top { grid-template-columns: 2fr 1fr 1fr; }
+    }
+
+    .ft-brand {
+      font-family: 'Roboto Slab', serif;
+      font-size: 2.2rem; font-weight: 900;
+      color: var(--glacier); margin-bottom: 0.85rem;
+    }
+    .ft-tagline {
+      font-size: 0.84rem; line-height: 1.85;
+      color: rgba(244,243,238,0.38); max-width: 270px;
+    }
+    .ft-social {
+      display: flex; gap: 1.1rem; margin-top: 1.5rem;
+    }
+    .ft-social a {
+      color: rgba(244,243,238,0.28); transition: color 0.25s;
+    }
+    .ft-social a:hover { color: var(--umber-lt); }
+
+    .ft-col-lbl {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.63rem; letter-spacing: 0.25em;
+      text-transform: lowercase; color: var(--umber-lt);
+      margin-bottom: 1.1rem;
+    }
+    .ft-links { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+    .ft-links a {
+      font-size: 0.86rem; color: rgba(244,243,238,0.45);
+      text-decoration: none; transition: color 0.25s;
+    }
+    .ft-links a:hover { color: var(--glacier); }
+
+    .ft-bottom {
+      margin-top: 2rem;
+      display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;
+    }
+    .ft-copy {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.66rem; letter-spacing: 0.1em;
+      text-transform: lowercase;
+      color: rgba(244,243,238,0.2);
+    }
+
+    @media (min-width: 768px) { footer { padding: 5rem 4rem 2.5rem; } }
+    @media (min-width: 1024px) { footer { padding: 6rem 6rem 3rem; } }
+
+    /* ── REVEAL ANIMATIONS ── */
+    .rv {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .rv.in { opacity: 1; transform: translateY(0); }
+    .rv-l {
+      opacity: 0; transform: translateX(-36px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .rv-l.in { opacity: 1; transform: translateX(0); }
+    .rv-r {
+      opacity: 0; transform: translateX(36px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .rv-r.in { opacity: 1; transform: translateX(0); }
+
+    .d1 { transition-delay: 0.1s; }
+    .d2 { transition-delay: 0.2s; }
+    .d3 { transition-delay: 0.3s; }
+    .d4 { transition-delay: 0.4s; }
+
+    /* Thai: zero out letter-spacing on any element showing Thai text */
+    html[lang="th"] [data-lang-th] { letter-spacing: 0 !important; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">361</a>
+  <ul class="nav-links">
+    <li><a href="#menu-sec" data-lang-th="เมนู" data-lang-en="menu">เมนู</a></li>
+    <li><a href="#sig-sec" data-lang-th="ซิกเนเจอร์" data-lang-en="specials">ซิกเนเจอร์</a></li>
+    <li><a href="#story-sec" data-lang-th="เรื่องของเรา" data-lang-en="our story">เรื่องของเรา</a></li>
+    <li><a href="#loc-sec" data-lang-th="หาเรา" data-lang-en="find us">หาเรา</a></li>
+  </ul>
+  <div class="nav-r">
+    <div class="lang-sw">
+      <i data-lucide="globe" width="14" height="14"></i>
+      <span class="lang-sw__label">TH</span>
+    </div>
+    <div class="hamburger" id="ham" role="button" aria-label="เปิดเมนู" tabindex="0">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<div class="m-overlay" id="mOverlay"></div>
+<div class="m-menu" id="mMenu">
+  <div class="m-close" id="mClose"><i data-lucide="x" width="20" height="20"></i></div>
+  <ul>
+    <li><a href="#menu-sec" data-lang-th="เมนู" data-lang-en="menu">เมนู</a></li>
+    <li><a href="#sig-sec" data-lang-th="ซิกเนเจอร์" data-lang-en="specials">ซิกเนเจอร์</a></li>
+    <li><a href="#story-sec" data-lang-th="เรื่องของเรา" data-lang-en="our story">เรื่องของเรา</a></li>
+    <li><a href="#loc-sec" data-lang-th="หาเรา" data-lang-en="find us">หาเรา</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-body">
+    <p class="hero-eyebrow" data-lang-th="กาแฟ · พื้นที่ · พลังงาน" data-lang-en="coffee · space · energy">กาแฟ · พื้นที่ · พลังงาน</p>
+    <h1 class="hero-h1">
+      <span data-lang-th="กาแฟ" data-lang-en="pure">กาแฟ</span><br>
+      <span class="l2">
+        <span class="slant" data-lang-th="ที่ตื่นเต้น" data-lang-en="raw">ที่ตื่นเต้น</span>
+      </span>
+      <span class="l2" data-lang-th="กว่านี้" data-lang-en="energy">กว่านี้</span>
+    </h1>
+    <p class="hero-sub" data-lang-th="ทุกถ้วยคือจังหวะ ทุกพื้นที่คือแรงบันดาลใจ — 361 Cafe คือที่ที่ความคิดสร้างสรรค์เริ่มต้น" data-lang-en="Every cup a rhythm. Every corner an inspiration — 361 Cafe is where creative energy begins.">ทุกถ้วยคือจังหวะ ทุกพื้นที่คือแรงบันดาลใจ — 361 Cafe คือที่ที่ความคิดสร้างสรรค์เริ่มต้น</p>
+    <a href="#menu-sec" class="hero-cta">
+      <span data-lang-th="ดูเมนูของเรา" data-lang-en="explore the menu">ดูเมนูของเรา</span>
+      <i data-lucide="arrow-right" width="16" height="16"></i>
+    </a>
+  </div>
+  <div class="scroll-sig">
+    <div class="scroll-bar"></div>
+    <span data-lang-th="เลื่อนลง" data-lang-en="scroll">เลื่อนลง</span>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="manifesto-ghost" aria-hidden="true">361</div>
+  <p class="sec-label rv"><span class="n">01 —</span> <span data-lang-th="แนวคิดของเรา" data-lang-en="manifesto">แนวคิดของเรา</span></p>
+  <p class="manifesto-text rv d1">
+    <span data-lang-th="ไม่มีกาแฟถ้วยใดที่เหมือนกัน" data-lang-en="No two cups are the same.">ไม่มีกาแฟถ้วยใดที่เหมือนกัน</span>
+    <strong data-lang-th=" ทุกเมล็ดมีเรื่องเล่า" data-lang-en=" Every bean has a story."> ทุกเมล็ดมีเรื่องเล่า</strong>
+    <span data-lang-th=" เราไม่ทำกาแฟเพื่อความเร่งรีบ — เราทำเพื่อให้คุณหยุดพักจากมัน" data-lang-en=" We don't make coffee for the rush — we make it for the pause."> เราไม่ทำกาแฟเพื่อความเร่งรีบ — เราทำเพื่อให้คุณหยุดพักจากมัน</span>
+  </p>
+  <div class="manifesto-img-wrap rv d2">
+    <img class="manifesto-img"
+         src="https://images.unsplash.com/photo-1715756331228-df7243bdb3e8?w=1000&h=520&fit=crop"
+         alt="cafe interior black and white stools">
+    <span class="manifesto-cap" data-lang-th="ออกแบบด้วยความตั้งใจ" data-lang-en="designed with intent">ออกแบบด้วยความตั้งใจ</span>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- MENU ACCORDION -->
+<section class="menu-sec" id="menu-sec">
+  <p class="sec-label-lt rv"><span class="n">02 —</span> <span data-lang-th="เมนูเครื่องดื่ม" data-lang-en="the menu">เมนูเครื่องดื่ม</span></p>
+  <h2 class="sec-h2 rv d1">
+    <span data-lang-th="สั่ง" data-lang-en="order">สั่ง</span><br>
+    <span data-lang-th="ตามใจ" data-lang-en="your way">ตามใจ</span>
+  </h2>
+
+  <div class="accordion rv d2">
+    <!-- 01 -->
+    <div class="acc-item open">
+      <div class="acc-hd">
+        <span class="acc-num">01</span>
+        <span class="acc-name" data-lang-th="เอสเปรสโซ่ซิกเนเจอร์" data-lang-en="Signature Espresso">เอสเปรสโซ่ซิกเนเจอร์</span>
+        <span class="acc-price">฿80</span>
+        <span class="acc-icon"><i data-lucide="plus" width="16" height="16"></i></span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="acc-desc" data-lang-th="อาราบิก้าจากดอยช้าง เชียงราย ชงด้วยเครื่อง La Marzocco แรงดัน 9 บาร์ เข้มข้น กลมกล่อม มีกลิ่นดาร์กช็อกโกแลตอ่อนๆ ลิ้มรสได้ทันทีหรือจะเติมนมก็ได้" data-lang-en="Arabica from Doi Chang, Chiang Rai. Pulled at 9-bar on La Marzocco. Dense, round, with a whisper of dark chocolate. Drink straight or build on it.">อาราบิก้าจากดอยช้าง เชียงราย ชงด้วยเครื่อง La Marzocco แรงดัน 9 บาร์ เข้มข้น กลมกล่อม มีกลิ่นดาร์กช็อกโกแลตอ่อนๆ ลิ้มรสได้ทันทีหรือจะเติมนมก็ได้</p>
+          <img class="acc-img"
+               src="https://images.unsplash.com/photo-1501817931860-6b22e34ca1a8?w=220&h=220&fit=crop"
+               alt="espresso shot">
+        </div>
+      </div>
+    </div>
+    <!-- 02 -->
+    <div class="acc-item">
+      <div class="acc-hd">
+        <span class="acc-num">02</span>
+        <span class="acc-name" data-lang-th="ลาเต้ชาร์โคล" data-lang-en="Charcoal Latte">ลาเต้ชาร์โคล</span>
+        <span class="acc-price">฿130</span>
+        <span class="acc-icon"><i data-lucide="plus" width="16" height="16"></i></span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="acc-desc" data-lang-th="ผงชาร์โคลคั่วร่วมกับนมออร์แกนิคจากเชียงใหม่ ฟองหนาแน่น สีดำเข้มตัดกับฟองขาว วิชวลที่พูดแทนตัวเอง" data-lang-en="Activated charcoal with organic Chiang Mai milk. Dense foam. Pitch black meets pure white — the visual says everything.">ผงชาร์โคลคั่วร่วมกับนมออร์แกนิคจากเชียงใหม่ ฟองหนาแน่น สีดำเข้มตัดกับฟองขาว วิชวลที่พูดแทนตัวเอง</p>
+          <img class="acc-img"
+               src="https://images.unsplash.com/photo-1763473821509-9a383b480844?w=220&h=220&fit=crop"
+               alt="charcoal latte">
+        </div>
+      </div>
+    </div>
+    <!-- 03 -->
+    <div class="acc-item">
+      <div class="acc-hd">
+        <span class="acc-num">03</span>
+        <span class="acc-name" data-lang-th="โคลด์บรูว์ 361" data-lang-en="361 Cold Brew">โคลด์บรูว์ 361</span>
+        <span class="acc-price">฿140</span>
+        <span class="acc-icon"><i data-lucide="plus" width="16" height="16"></i></span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="acc-desc" data-lang-th="แช่เย็น 18 ชั่วโมงกับเมล็ดคั่วมีเดียมดาร์ก นุ่มลึก หวานเป็นธรรมชาติโดยไม่ต้องเติมน้ำตาล เสิร์ฟบนน้ำแข็งก้อนใส" data-lang-en="18-hour cold steep on medium-dark roast. Smooth and naturally sweet — no sugar needed. Poured over clear ice blocks.">แช่เย็น 18 ชั่วโมงกับเมล็ดคั่วมีเดียมดาร์ก นุ่มลึก หวานเป็นธรรมชาติโดยไม่ต้องเติมน้ำตาล เสิร์ฟบนน้ำแข็งก้อนใส</p>
+          <img class="acc-img"
+               src="https://images.unsplash.com/photo-1563912422964-0fe21ebd1440?w=220&h=220&fit=crop"
+               alt="cold brew">
+        </div>
+      </div>
+    </div>
+    <!-- 04 -->
+    <div class="acc-item">
+      <div class="acc-hd">
+        <span class="acc-num">04</span>
+        <span class="acc-name" data-lang-th="มัทฉะอุมามิ" data-lang-en="Umami Matcha">มัทฉะอุมามิ</span>
+        <span class="acc-price">฿150</span>
+        <span class="acc-icon"><i data-lucide="plus" width="16" height="16"></i></span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="acc-desc" data-lang-th="มัทฉะเกรดพิธีการจากเกียวโต ผสมกับนมโอ๊ตครีมมี่ เพิ่มเกลือทะเลเล็กน้อยเพื่อดึงความหวานออกมาอย่างเป็นธรรมชาติ" data-lang-en="Ceremonial-grade Kyoto matcha with creamy oat milk. A pinch of sea salt lifts the natural sweetness.">มัทฉะเกรดพิธีการจากเกียวโต ผสมกับนมโอ๊ตครีมมี่ เพิ่มเกลือทะเลเล็กน้อยเพื่อดึงความหวานออกมาอย่างเป็นธรรมชาติ</p>
+          <img class="acc-img"
+               src="https://images.unsplash.com/photo-1670404161009-29548c027d06?w=220&h=220&fit=crop"
+               alt="matcha latte">
+        </div>
+      </div>
+    </div>
+    <!-- 05 -->
+    <div class="acc-item">
+      <div class="acc-hd">
+        <span class="acc-num">05</span>
+        <span class="acc-name" data-lang-th="โอเลี้ยงสูตรใหม่" data-lang-en="Modern Oleang">โอเลี้ยงสูตรใหม่</span>
+        <span class="acc-price">฿95</span>
+        <span class="acc-icon"><i data-lucide="plus" width="16" height="16"></i></span>
+      </div>
+      <div class="acc-body">
+        <div class="acc-inner">
+          <p class="acc-desc" data-lang-th="โอเลี้ยงต้นตำรับรสเข้มกว่าที่เคย ผสมงาดำคั่วบด เสิร์ฟเย็นแบบไทยๆ แต่ฟีลให้ดูร่วมสมัย" data-lang-en="Traditional Thai iced coffee reworked. Roasted black sesame blended in. Ice-cold with a contemporary feel.">โอเลี้ยงต้นตำรับรสเข้มกว่าที่เคย ผสมงาดำคั่วบด เสิร์ฟเย็นแบบไทยๆ แต่ฟีลให้ดูร่วมสมัย</p>
+          <img class="acc-img"
+               src="https://images.unsplash.com/photo-1580933073521-dc49ac0d4e6a?w=220&h=220&fit=crop"
+               alt="thai iced coffee">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNATURE H-SCROLL -->
+<section class="sig-sec" id="sig-sec">
+  <div class="sig-head">
+    <p class="sec-label rv"><span class="n">03 —</span> <span data-lang-th="ซิกเนเจอร์ซีรีส์" data-lang-en="signature series">ซิกเนเจอร์ซีรีส์</span></p>
+    <h2 class="sec-h2 rv d1">
+      <span data-lang-th="คัดมาเพื่อ" data-lang-en="crafted">คัดมาเพื่อ</span><br>
+      <span data-lang-th="คุณโดยเฉพาะ" data-lang-en="for you">คุณโดยเฉพาะ</span>
+    </h2>
+  </div>
+  <div class="sig-track" id="sigTrack">
+    <div class="sig-card rv">
+      <img class="sig-card-img"
+           src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=640&h=420&fit=crop"
+           alt="coffee beans from Doi Chang">
+      <div class="sig-card-body">
+        <p class="sig-tag" data-lang-th="ซิงเกิ้ลออริจิน" data-lang-en="single origin">ซิงเกิ้ลออริจิน</p>
+        <h3 class="sig-name" data-lang-th="ดอยช้าง รีเซิร์ฟ" data-lang-en="Doi Chang Reserve">ดอยช้าง รีเซิร์ฟ</h3>
+        <p class="sig-note" data-lang-th="อาราบิก้าจากไร่ครอบครัวบนดอยช้าง คั่วมีเดียม กลิ่นผลไม้เขตร้อน ซิตรัสอ่อนๆ" data-lang-en="Family-farm Arabica from Doi Chang highlands. Medium roast. Tropical fruit and soft citrus.">อาราบิก้าจากไร่ครอบครัวบนดอยช้าง คั่วมีเดียม กลิ่นผลไม้เขตร้อน ซิตรัสอ่อนๆ</p>
+        <span class="sig-price">฿180 / 100g</span>
+      </div>
+    </div>
+    <div class="sig-card rv d1">
+      <img class="sig-card-img"
+           src="https://images.unsplash.com/photo-1531441059801-fa3f5859e128?w=640&h=420&fit=crop"
+           alt="barista pouring latte art">
+      <div class="sig-card-body">
+        <p class="sig-tag" data-lang-th="ฝีมือบาริสต้า" data-lang-en="barista craft">ฝีมือบาริสต้า</p>
+        <h3 class="sig-name" data-lang-th="ลาเต้อาร์ต" data-lang-en="Latte Art Pour">ลาเต้อาร์ต</h3>
+        <p class="sig-note" data-lang-th="ทุกถ้วยออกจากมือบาริสต้าที่ผ่านการฝึกฝน บนพื้นฐานของกาแฟดีและนมที่เลือกมาแล้ว" data-lang-en="Every cup poured by a trained barista. Good coffee, carefully sourced milk. Nothing else.">ทุกถ้วยออกจากมือบาริสต้าที่ผ่านการฝึกฝน บนพื้นฐานของกาแฟดีและนมที่เลือกมาแล้ว</p>
+        <span class="sig-price" data-lang-th="เสิร์ฟสด" data-lang-en="served fresh">เสิร์ฟสด</span>
+      </div>
+    </div>
+    <div class="sig-card rv d2">
+      <img class="sig-card-img"
+           src="https://images.unsplash.com/photo-1623859763838-a304cbfd4901?w=640&h=420&fit=crop"
+           alt="coffee beans in mug">
+      <div class="sig-card-body">
+        <p class="sig-tag" data-lang-th="โรสเตอรี่" data-lang-en="in-house roastery">โรสเตอรี่</p>
+        <h3 class="sig-name" data-lang-th="คั่วเองในร้าน" data-lang-en="House Roasted">คั่วเองในร้าน</h3>
+        <p class="sig-note" data-lang-th="เราคั่วเมล็ดกาแฟทุกสัปดาห์ในร้าน เพื่อให้มั่นใจว่าทุกถ้วยที่เสิร์ฟสดใหม่เสมอ" data-lang-en="We roast every week in-house so every cup you get is genuinely fresh.">เราคั่วเมล็ดกาแฟทุกสัปดาห์ในร้าน เพื่อให้มั่นใจว่าทุกถ้วยที่เสิร์ฟสดใหม่เสมอ</p>
+        <span class="sig-price" data-lang-th="สั่งซื้อเมล็ด" data-lang-en="buy beans">สั่งซื้อเมล็ด</span>
+      </div>
+    </div>
+    <div class="sig-card rv d3">
+      <img class="sig-card-img"
+           src="https://images.unsplash.com/photo-1709900096576-91a1042e704e?w=640&h=420&fit=crop"
+           alt="cafe window light shadow">
+      <div class="sig-card-body">
+        <p class="sig-tag" data-lang-th="พื้นที่ทำงาน" data-lang-en="workspace">พื้นที่ทำงาน</p>
+        <h3 class="sig-name" data-lang-th="โต๊ะสำหรับคิด" data-lang-en="Think Seats">โต๊ะสำหรับคิด</h3>
+        <p class="sig-note" data-lang-th="ทุกโต๊ะมีปลั๊กไฟและ Wi-Fi ความเร็วสูง ออกแบบมาเพื่อคนทำงาน คนเขียน และคนที่อยากนั่งนิ่งๆ" data-lang-en="Every seat has power and fast Wi-Fi. Designed for workers, writers, and people who need quiet.">ทุกโต๊ะมีปลั๊กไฟและ Wi-Fi ความเร็วสูง ออกแบบมาเพื่อคนทำงาน คนเขียน และคนที่อยากนั่งนิ่งๆ</p>
+        <span class="sig-price" data-lang-th="มาเยี่ยมเรา" data-lang-en="come visit">มาเยี่ยมเรา</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story-sec" id="story-sec">
+  <div class="story-grid">
+    <div>
+      <p class="sec-label-lt rv"><span class="n">04 —</span> <span data-lang-th="เรื่องของเรา" data-lang-en="our story">เรื่องของเรา</span></p>
+      <h2 class="sec-h2 rv d1">
+        <span data-lang-th="เริ่มจาก" data-lang-en="born from">เริ่มจาก</span><br>
+        <span data-lang-th="ความหลงใหล" data-lang-en="a passion">ความหลงใหล</span>
+      </h2>
+      <p class="story-body rv d2" data-lang-th="361 Cafe เปิดในปี 2562 ด้วยความเชื่อว่ากาแฟที่ดีไม่ควรซับซ้อน แต่ต้องทำด้วยความใส่ใจ เราเริ่มจากร้านเล็กๆ ในซอยเงียบสงัด และเติบโตมาจากความไว้วางใจของลูกค้าทุกคน" data-lang-en="361 Cafe opened in 2019 with a belief that great coffee shouldn't be complicated — it just has to be made with care. We started small, in a quiet side street. We grew on trust.">361 Cafe เปิดในปี 2562 ด้วยความเชื่อว่ากาแฟที่ดีไม่ควรซับซ้อน แต่ต้องทำด้วยความใส่ใจ เราเริ่มจากร้านเล็กๆ ในซอยเงียบสงัด และเติบโตมาจากความไว้วางใจของลูกค้าทุกคน</p>
+      <p class="story-body rv d3" data-lang-th="วันนี้เราคัดเลือกเมล็ดกาแฟจากไร่ที่เราเชื่อใจ คั่วเองในร้าน และชงโดยบาริสต้าที่รักในงาน เพราะทุกรายละเอียดมีความหมาย" data-lang-en="Today we source from farms we trust, roast in-house weekly, and employ baristas who genuinely love what they do. Because every detail matters.">วันนี้เราคัดเลือกเมล็ดกาแฟจากไร่ที่เราเชื่อใจ คั่วเองในร้าน และชงโดยบาริสต้าที่รักในงาน เพราะทุกรายละเอียดมีความหมาย</p>
+      <div class="stat-row rv d4">
+        <div>
+          <div class="stat-num">5+</div>
+          <div class="stat-lbl" data-lang-th="ปีที่เปิดร้าน" data-lang-en="years open">ปีที่เปิดร้าน</div>
+        </div>
+        <div>
+          <div class="stat-num">12</div>
+          <div class="stat-lbl" data-lang-th="เมนูซิกเนเจอร์" data-lang-en="signature drinks">เมนูซิกเนเจอร์</div>
+        </div>
+        <div>
+          <div class="stat-num">3</div>
+          <div class="stat-lbl" data-lang-th="ไร่พันธมิตร" data-lang-en="partner farms">ไร่พันธมิตร</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-imgs rv-r">
+      <img class="story-img-main"
+           src="https://images.unsplash.com/photo-1726835498689-b4f6dbcdbdfb?w=800&h=700&fit=crop"
+           alt="361 cafe bar interior">
+      <img class="story-img-off"
+           src="https://images.unsplash.com/photo-1623859763838-a304cbfd4901?w=400&h=300&fit=crop"
+           alt="coffee beans detail">
+    </div>
+  </div>
+</section>
+
+<!-- FOOD -->
+<section class="food-sec" id="food-sec">
+  <p class="sec-label rv"><span class="n">05 —</span> <span data-lang-th="อาหารและเบเกอรี่" data-lang-en="food &amp; bakery">อาหารและเบเกอรี่</span></p>
+  <h2 class="sec-h2 rv d1">
+    <span data-lang-th="อิ่มทั้งกาย" data-lang-en="fuel the">อิ่มทั้งกาย</span><br>
+    <span data-lang-th="เติมเต็มใจ" data-lang-en="whole self">เติมเต็มใจ</span>
+  </h2>
+  <div class="food-list">
+    <div class="food-item rv">
+      <span class="food-n">01</span>
+      <div>
+        <h3 class="food-name" data-lang-th="ครัวซองต์เนยสด" data-lang-en="Fresh Butter Croissant">ครัวซองต์เนยสด</h3>
+        <p class="food-desc" data-lang-th="อบสดทุกเช้า เนยนำเข้าจากฝรั่งเศส ชั้นแป้งบางกรอบ กลิ่นหอมแว่วทั่วร้าน" data-lang-en="Baked fresh every morning. French-import butter, thin flaky layers. You'll smell them from the street.">อบสดทุกเช้า เนยนำเข้าจากฝรั่งเศส ชั้นแป้งบางกรอบ กลิ่นหอมแว่วทั่วร้าน</p>
+        <p class="food-price">฿75</p>
+      </div>
+    </div>
+    <div class="food-item rv d1">
+      <span class="food-n">02</span>
+      <div>
+        <h3 class="food-name" data-lang-th="บราวนี่ชาร์โคล" data-lang-en="Charcoal Fudge Brownie">บราวนี่ชาร์โคล</h3>
+        <p class="food-desc" data-lang-th="บราวนี่เข้มข้นผสมผงชาร์โคล หน้าแน่นละมุน กลิ่นช็อกโกแลตแบบไม่หวานจัด เข้ากับกาแฟทุกแก้ว" data-lang-en="Dense, fudgy, activated charcoal brownie. Bittersweet — built for coffee pairing.">บราวนี่เข้มข้นผสมผงชาร์โคล หน้าแน่นละมุน กลิ่นช็อกโกแลตแบบไม่หวานจัด เข้ากับกาแฟทุกแก้ว</p>
+        <p class="food-price">฿95</p>
+      </div>
+    </div>
+    <div class="food-item rv d2">
+      <span class="food-n">03</span>
+      <div>
+        <h3 class="food-name" data-lang-th="โทสต์เต้าหู้ยูซุมิโซ" data-lang-en="Yuzu Miso Tofu Toast">โทสต์เต้าหู้ยูซุมิโซ</h3>
+        <p class="food-desc" data-lang-th="โซร์โดว์ท็อปด้วยเต้าหู้กรอบและข้าวญี่ปุ่น ราดซอสยูซุมิโซ เมนูไลท์แต่อิ่มจริง" data-lang-en="Sourdough topped with crispy tofu and Japanese rice. Yuzu miso drizzle. Light but genuinely filling.">โซร์โดว์ท็อปด้วยเต้าหู้กรอบและข้าวญี่ปุ่น ราดซอสยูซุมิโซ เมนูไลท์แต่อิ่มจริง</p>
+        <p class="food-price">฿120</p>
+      </div>
+    </div>
+    <div class="food-item rv d3">
+      <span class="food-n">04</span>
+      <div>
+        <h3 class="food-name" data-lang-th="บาสก์ชีสเค้ก" data-lang-en="Basque Cheesecake">บาสก์ชีสเค้ก</h3>
+        <p class="food-desc" data-lang-th="ชีสเค้กผิวไหม้สไตล์บาสก์ ครีมชีสเนื้อแน่นละมุน เสิร์ฟอุ่นๆ สำหรับรสชาติที่ดีที่สุด" data-lang-en="Basque burnt cheesecake. Rich, dense cream cheese interior. Served warm for peak flavour.">ชีสเค้กผิวไหม้สไตล์บาสก์ ครีมชีสเนื้อแน่นละมุน เสิร์ฟอุ่นๆ สำหรับรสชาติที่ดีที่สุด</p>
+        <p class="food-price">฿145</p>
+      </div>
+    </div>
+    <div class="food-item rv d4">
+      <span class="food-n">05</span>
+      <div>
+        <h3 class="food-name" data-lang-th="เซตอาหารเช้า 361" data-lang-en="361 Breakfast Set">เซตอาหารเช้า 361</h3>
+        <p class="food-desc" data-lang-th="ไข่ดาว + ครัวซองต์ + กาแฟหรือชาร้อน เซตที่คิดมาเพื่อเริ่มวันใหม่ให้ดี" data-lang-en="Fried egg + croissant + coffee or hot tea. The set we designed for a good start.">ไข่ดาว + ครัวซองต์ + กาแฟหรือชาร้อน เซตที่คิดมาเพื่อเริ่มวันใหม่ให้ดี</p>
+        <p class="food-price">฿175</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ATMOSPHERE -->
+<section class="atmos-sec">
+  <div class="atmos-head">
+    <p class="sec-label rv"><span class="n">06 —</span> <span data-lang-th="บรรยากาศ" data-lang-en="the space">บรรยากาศ</span></p>
+    <h2 class="sec-h2 rv d1">
+      <span data-lang-th="มาสักครู่" data-lang-en="stay a">มาสักครู่</span><br>
+      <span data-lang-th="อยู่ทั้งวัน" data-lang-en="while longer">อยู่ทั้งวัน</span>
+    </h2>
+  </div>
+  <div class="atmos-grid">
+    <div class="ag-item">
+      <img src="https://images.unsplash.com/photo-1546237769-6f84ec1a512a?w=700&h=820&fit=crop"
+           alt="cafe display counter pastries">
+    </div>
+    <div class="ag-item">
+      <img src="https://images.unsplash.com/photo-1556471013-0001958d2f12?w=700&h=400&fit=crop"
+           alt="freshly baked bread">
+    </div>
+    <div class="ag-item">
+      <img src="https://images.unsplash.com/photo-1563912422964-0fe21ebd1440?w=700&h=400&fit=crop"
+           alt="coffee cup by window">
+    </div>
+  </div>
+  <div class="atmos-quote rv">
+    <p class="atmos-q-text" data-lang-th="&ldquo;ที่นี่ไม่ใช่แค่ร้านกาแฟ มันคือพื้นที่ที่ให้คุณหายใจได้&rdquo;" data-lang-en="&ldquo;This isn't just a coffee shop. It's a place where you can breathe.&rdquo;">&ldquo;ที่นี่ไม่ใช่แค่ร้านกาแฟ มันคือพื้นที่ที่ให้คุณหายใจได้&rdquo;</p>
+    <p class="atmos-q-attr" data-lang-th="— ลูกค้าประจำ, 2567" data-lang-en="— a regular, 2024">— ลูกค้าประจำ, 2567</p>
+  </div>
+</section>
+
+<!-- LOCATION + HOURS -->
+<section class="loc-sec" id="loc-sec">
+  <div class="loc-grid">
+    <div>
+      <p class="sec-label-lt rv"><span class="n">07 —</span> <span data-lang-th="เวลาเปิด–ปิด" data-lang-en="hours">เวลาเปิด–ปิด</span></p>
+      <h2 class="sec-h2 rv d1">
+        <span data-lang-th="เปิดทุกวัน" data-lang-en="open every">เปิดทุกวัน</span><br>
+        <span data-lang-th="ไม่มีวันหยุด" data-lang-en="single day">ไม่มีวันหยุด</span>
+      </h2>
+      <table class="hours-tbl rv d2">
+        <tr>
+          <td data-lang-th="จันทร์ — ศุกร์" data-lang-en="Monday — Friday">จันทร์ — ศุกร์</td>
+          <td>07:00 — 21:00</td>
+        </tr>
+        <tr>
+          <td data-lang-th="เสาร์ — อาทิตย์" data-lang-en="Saturday — Sunday">เสาร์ — อาทิตย์</td>
+          <td>08:00 — 22:00</td>
+        </tr>
+        <tr>
+          <td data-lang-th="วันหยุดนักขัตฤกษ์" data-lang-en="Public Holidays">วันหยุดนักขัตฤกษ์</td>
+          <td>09:00 — 20:00</td>
+        </tr>
+      </table>
+      <p class="hours-note rv d3" data-lang-th="Last order 30 นาทีก่อนปิด · ครัวปิด 1 ชั่วโมงก่อนปิด" data-lang-en="Last order 30 min before close · Kitchen closes 1 hour before">Last order 30 นาทีก่อนปิด · ครัวปิด 1 ชั่วโมงก่อนปิด</p>
+    </div>
+    <div>
+      <p class="sec-label-lt rv"><span class="n">08 —</span> <span data-lang-th="มาหาเรา" data-lang-en="find us">มาหาเรา</span></p>
+      <h2 class="sec-h2 rv d1">
+        <span data-lang-th="สีลม" data-lang-en="silom">สีลม</span><br>
+        <span data-lang-th="กรุงเทพฯ" data-lang-en="bangkok">กรุงเทพฯ</span>
+      </h2>
+      <div class="loc-list rv d2">
+        <div class="loc-row">
+          <span class="loc-ico"><i data-lucide="map-pin" width="18" height="18"></i></span>
+          <div>
+            <p class="loc-lbl" data-lang-th="ที่อยู่" data-lang-en="address">ที่อยู่</p>
+            <p class="loc-val" data-lang-th="361 ถนนสีลม แขวงสีลม เขตบางรัก กรุงเทพฯ 10500" data-lang-en="361 Silom Road, Silom, Bang Rak, Bangkok 10500">361 ถนนสีลม แขวงสีลม เขตบางรัก กรุงเทพฯ 10500</p>
+          </div>
+        </div>
+        <div class="loc-row">
+          <span class="loc-ico"><i data-lucide="train-front" width="18" height="18"></i></span>
+          <div>
+            <p class="loc-lbl" data-lang-th="รถไฟฟ้า" data-lang-en="transit">รถไฟฟ้า</p>
+            <p class="loc-val" data-lang-th="BTS สีลม / MRT สีลม ทางออก 2 เดิน 5 นาที" data-lang-en="BTS Silom / MRT Silom Exit 2, 5-min walk">BTS สีลม / MRT สีลม ทางออก 2 เดิน 5 นาที</p>
+          </div>
+        </div>
+        <div class="loc-row">
+          <span class="loc-ico"><i data-lucide="phone" width="18" height="18"></i></span>
+          <div>
+            <p class="loc-lbl" data-lang-th="โทรศัพท์" data-lang-en="phone">โทรศัพท์</p>
+            <p class="loc-val">02-361-0361</p>
+          </div>
+        </div>
+        <div class="loc-row">
+          <span class="loc-ico"><i data-lucide="instagram" width="18" height="18"></i></span>
+          <div>
+            <p class="loc-lbl">instagram</p>
+            <p class="loc-val">@361cafe</p>
+          </div>
+        </div>
+      </div>
+      <div class="loc-map-box rv d3">
+        <img src="https://images.unsplash.com/photo-1709900096576-91a1042e704e?w=700&h=300&fit=crop"
+             alt="map location placeholder">
+        <div class="loc-map-label">
+          <i data-lucide="map-pin" width="14" height="14"></i>
+          <span data-lang-th="ดูใน Google Maps" data-lang-en="view on Google Maps">ดูใน Google Maps</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-top">
+    <div>
+      <div class="ft-brand">361</div>
+      <p class="ft-tagline" data-lang-th="กาแฟที่ชงด้วยใจ พื้นที่ที่ออกแบบมาเพื่อคุณ — บ้านของคนรักกาแฟ" data-lang-en="Coffee made with care, space designed for you — home for coffee lovers.">กาแฟที่ชงด้วยใจ พื้นที่ที่ออกแบบมาเพื่อคุณ — บ้านของคนรักกาแฟ</p>
+      <div class="ft-social">
+        <a href="#" aria-label="Instagram"><i data-lucide="instagram" width="18" height="18"></i></a>
+        <a href="#" aria-label="Facebook"><i data-lucide="facebook" width="18" height="18"></i></a>
+        <a href="#" aria-label="Line"><i data-lucide="message-circle" width="18" height="18"></i></a>
+      </div>
+    </div>
+    <div>
+      <p class="ft-col-lbl" data-lang-th="เมนู" data-lang-en="menu">เมนู</p>
+      <ul class="ft-links">
+        <li><a href="#menu-sec" data-lang-th="เครื่องดื่ม" data-lang-en="drinks">เครื่องดื่ม</a></li>
+        <li><a href="#food-sec" data-lang-th="อาหาร" data-lang-en="food">อาหาร</a></li>
+        <li><a href="#sig-sec" data-lang-th="ซิกเนเจอร์" data-lang-en="signature">ซิกเนเจอร์</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="ft-col-lbl" data-lang-th="ข้อมูล" data-lang-en="info">ข้อมูล</p>
+      <ul class="ft-links">
+        <li><a href="#story-sec" data-lang-th="เรื่องของเรา" data-lang-en="our story">เรื่องของเรา</a></li>
+        <li><a href="#loc-sec" data-lang-th="หาเรา" data-lang-en="find us">หาเรา</a></li>
+        <li><a href="#loc-sec" data-lang-th="ติดต่อ" data-lang-en="contact">ติดต่อ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <p class="ft-copy" data-lang-th="© 2567 361 Cafe สงวนลิขสิทธิ์" data-lang-en="© 2024 361 Cafe. All rights reserved.">© 2567 361 Cafe สงวนลิขสิทธิ์</p>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  lucide.createIcons();
+
+  // Navbar scroll
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function () {
+    nav.classList.toggle('scrolled', window.scrollY > 55);
+  }, { passive: true });
+
+  // Mobile menu
+  var ham = document.getElementById('ham');
+  var mMenu = document.getElementById('mMenu');
+  var mOverlay = document.getElementById('mOverlay');
+  var mClose = document.getElementById('mClose');
+
+  function openM() { mMenu.classList.add('open'); mOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeM() { mMenu.classList.remove('open'); mOverlay.classList.remove('open'); document.body.style.overflow = ''; }
+
+  ham.addEventListener('click', openM);
+  ham.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') openM(); });
+  mClose.addEventListener('click', closeM);
+  mOverlay.addEventListener('click', closeM);
+  mMenu.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', closeM); });
+
+  // Accordion
+  document.querySelectorAll('.acc-hd').forEach(function (hd) {
+    hd.addEventListener('click', function () {
+      var item = this.parentElement;
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.acc-item').forEach(function (i) { i.classList.remove('open'); });
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+  // Reveal on scroll
+  var revEls = document.querySelectorAll('.rv, .rv-l, .rv-r');
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  revEls.forEach(function (el) { io.observe(el); });
+
+  // Drag scroll for signature track
+  var track = document.getElementById('sigTrack');
+  var isDragging = false, sx, sl;
+  track.addEventListener('mousedown', function (e) { isDragging = true; sx = e.pageX - track.offsetLeft; sl = track.scrollLeft; track.style.cursor = 'grabbing'; });
+  window.addEventListener('mouseup', function () { isDragging = false; track.style.cursor = 'grab'; });
+  track.addEventListener('mousemove', function (e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    var x = e.pageX - track.offsetLeft;
+    track.scrollLeft = sl - (x - sx) * 1.5;
+  });
+
+});
+</script>
+
+<script>
+(function(){var K='site-lang',L=localStorage.getItem(K)||'th';function S(l){L=l;localStorage.setItem(K,l);document.documentElement.lang=l;document.querySelectorAll('[data-lang-th]').forEach(function(e){var t=e.getAttribute('data-lang-'+l);if(t!==null){e.textContent=t}});var lb=document.querySelector('.lang-sw__label');if(lb){lb.textContent=l.toUpperCase()}}var sw=document.querySelector('.lang-sw');if(sw){sw.addEventListener('click',function(){S(L==='th'?'en':'th')});sw.style.cursor='pointer'}if(L!=='th'){S(L)}})();
+</script>
+
+</body>
+</html>

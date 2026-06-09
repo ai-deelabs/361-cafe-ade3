@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>361 Cafe — ที่นัดพบของความเงียบและรสชาติ</title>
+<meta name="description" content="361 Cafe คาเฟ่สไตล์โมเดิร์นที่มอบประสบการณ์กาแฟระดับพิเศษในบรรยากาศที่สงบและมีเอกลักษณ์">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.460.0"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --linen: #F0EAE0;
+    --linen-dark: #E4DBCc;
+    --carbon: #141414;
+    --carbon-soft: #2A2A2A;
+    --rose: #C4A99B;
+    --rose-light: #DDD0C8;
+    --rose-dark: #9E7E72;
+    --cream: #FAF7F2;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'IBM Plex Sans Thai', 'Sukhumvit Set', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--linen);
+    color: var(--carbon);
+    line-height: 1.8;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    overflow-x: hidden;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 1.5rem;
+    transition: background 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(240,234,224,0.95);
+    padding: 0.75rem 1.5rem;
+    box-shadow: 0 1px 0 rgba(20,20,20,0.08);
+    backdrop-filter: blur(8px);
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--carbon);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--rose-dark); }
+
+  .nav-links {
+    display: none;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--carbon);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.25s;
+  }
+  .nav-links a:hover { opacity: 1; }
+
+  .nav-right { display: flex; align-items: center; gap: 1rem; }
+
+  .lang-sw {
+    display: flex; align-items: center; gap: 0.3rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--carbon);
+    opacity: 0.65;
+    transition: opacity 0.2s;
+    background: none; border: none;
+  }
+  .lang-sw:hover { opacity: 1; }
+  .lang-sw svg { flex-shrink: 0; }
+
+  .hamburger {
+    display: flex; flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 4px;
+  }
+  .hamburger span {
+    display: block; width: 22px; height: 1.5px;
+    background: var(--carbon);
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 99;
+    background: var(--carbon);
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 2.5rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: var(--serif);
+    font-size: 2rem;
+    color: var(--linen);
+    text-decoration: none;
+    font-style: italic;
+  }
+
+  @media (min-width: 768px) {
+    .nav-links { display: flex; }
+    .hamburger { display: none; }
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100svh;
+    background: var(--carbon);
+    position: relative;
+    overflow: hidden;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 0 4rem;
+  }
+
+  .hero-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0.38;
+    transform: scale(1.05);
+    animation: slowzoom 14s ease-out forwards;
+  }
+  @keyframes slowzoom { to { transform: scale(1); } }
+
+  .hero-band {
+    position: relative; z-index: 2;
+    padding: 0 1.5rem;
+  }
+
+  .hero-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 11vw, 7.5rem);
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--linen);
+    margin-bottom: 1.5rem;
+  }
+  .hero-title em { color: var(--rose); font-style: italic; }
+
+  .hero-sub {
+    font-size: 0.9rem;
+    color: rgba(240,234,224,0.6);
+    max-width: 28rem;
+    line-height: 1.9;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: var(--rose);
+    color: var(--carbon);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 1em 2em;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.3s, transform 0.3s;
+  }
+  .hero-cta:hover { background: var(--rose-light); transform: translateY(-2px); }
+
+  .hero-scroll-line {
+    position: absolute; bottom: 2rem; right: 1.5rem; z-index: 2;
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  }
+  .hero-scroll-line span {
+    font-family: var(--mono); font-size: 0.6rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(240,234,224,0.4);
+    writing-mode: vertical-rl;
+  }
+  .hero-scroll-line::after {
+    content: ''; display: block;
+    width: 1px; height: 3rem;
+    background: linear-gradient(to bottom, rgba(196,169,155,0.6), transparent);
+    animation: linefall 2s ease-in-out infinite;
+  }
+  @keyframes linefall {
+    0%,100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(0.6); }
+  }
+
+  @media (min-width: 768px) {
+    .hero { padding-bottom: 6rem; }
+    .hero-band { padding: 0 6vw; }
+    .hero-title { line-height: 0.95; }
+  }
+
+  /* ── TEXT BAND ── */
+  .text-band {
+    background: var(--carbon);
+    color: var(--linen);
+    padding: 1.1rem 1.5rem;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .text-band-inner {
+    display: inline-flex; gap: 4rem;
+    animation: ticker 28s linear infinite;
+  }
+  .text-band-inner span {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(240,234,224,0.45);
+    flex-shrink: 0;
+  }
+  .text-band-inner span.accent { color: var(--rose); }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── PHILOSOPHY ── */
+  .philosophy {
+    background: var(--cream);
+    padding: 6rem 1.5rem;
+    position: relative;
+  }
+  .philosophy::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
+    background: var(--linen);
+    clip-path: polygon(0 100%, 100% 0, 100% 100%);
+  }
+
+  .phil-grid {
+    max-width: 900px; margin: 0 auto;
+  }
+  .phil-number {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--rose-dark);
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .phil-heading {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 400;
+    line-height: 1.25;
+    margin-bottom: 2.5rem;
+  }
+  .phil-heading em { font-style: italic; color: var(--rose-dark); }
+
+  .phil-cols {
+    display: grid; grid-template-columns: 1fr;
+    gap: 2rem; margin-top: 3rem;
+  }
+  .phil-col { border-top: 1px solid var(--linen-dark); padding-top: 1.5rem; }
+  .phil-col-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--rose-dark);
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .phil-col p { font-size: 0.92rem; color: var(--carbon-soft); line-height: 1.85; }
+
+  @media (min-width: 768px) {
+    .philosophy { padding: 8rem 6vw; }
+    .phil-cols { grid-template-columns: 1fr 1fr; gap: 3rem; }
+  }
+
+  /* ── REVEALS ── */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ── MENU ── */
+  .menu-section {
+    background: var(--linen);
+    padding: 5rem 1.5rem 6rem;
+  }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rose-dark);
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 400;
+    line-height: 1.3;
+    margin-bottom: 3rem;
+  }
+
+  .menu-tabs {
+    display: flex; gap: 0; margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--linen-dark);
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .menu-tabs::-webkit-scrollbar { display: none; }
+  .menu-tab {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--carbon);
+    opacity: 0.4;
+    padding: 0.75rem 1.25rem;
+    background: none; border: none; cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    white-space: nowrap;
+    transition: opacity 0.25s, border-color 0.25s;
+    min-height: 44px;
+  }
+  .menu-tab.active { opacity: 1; border-bottom-color: var(--carbon); }
+
+  .menu-panel { display: none; }
+  .menu-panel.active { display: block; }
+
+  .menu-items { display: flex; flex-direction: column; gap: 0; }
+  .menu-item {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--linen-dark);
+    gap: 1rem;
+  }
+  .menu-item-left { flex: 1; }
+  .menu-item-name {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+  }
+  .menu-item-desc { font-size: 0.8rem; color: rgba(20,20,20,0.5); line-height: 1.6; }
+  .menu-item-price {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--rose-dark);
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 768px) {
+    .menu-section { padding: 7rem 6vw; }
+    .menu-items { display: grid; grid-template-columns: 1fr 1fr; column-gap: 4rem; }
+    .menu-item { border-bottom: 1px solid var(--linen-dark); }
+  }
+
+  /* ── SIGNATURE ── */
+  .signature-section {
+    background: var(--carbon);
+    padding: 5rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .sig-label { color: var(--rose); }
+  .sig-title { color: var(--linen); margin-bottom: 3rem; }
+
+  .sig-cards {
+    display: flex; flex-direction: column; gap: 1.5rem;
+  }
+
+  .sig-card {
+    background: var(--carbon-soft);
+    border: 1px solid rgba(196,169,155,0.15);
+    border-radius: 3px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+  .sig-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.4); }
+
+  .sig-card-img {
+    width: 100%; height: 200px; object-fit: cover;
+    filter: grayscale(30%);
+    transition: filter 0.4s;
+  }
+  .sig-card:hover .sig-card-img { filter: grayscale(0%); }
+
+  .sig-card-body { padding: 1.5rem; }
+  .sig-card-tag {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--rose);
+    display: block; margin-bottom: 0.5rem;
+  }
+  .sig-card-name {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    color: var(--linen);
+    margin-bottom: 0.5rem;
+    font-style: italic;
+  }
+  .sig-card-desc { font-size: 0.83rem; color: rgba(240,234,224,0.5); line-height: 1.8; }
+  .sig-card-price {
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--rose);
+    margin-top: 1rem;
+    display: block;
+  }
+
+  /* offset grid on desktop */
+  @media (min-width: 768px) {
+    .signature-section { padding: 8rem 6vw; }
+    .sig-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      align-items: start;
+    }
+    .sig-card:nth-child(2) { margin-top: 3rem; }
+    .sig-card:nth-child(3) { margin-top: 1.5rem; }
+    .sig-card-img { height: 260px; }
+  }
+
+  /* ── SPACE SECTION ── */
+  .space-section {
+    background: var(--linen);
+    padding: 5rem 1.5rem;
+  }
+  .space-layout {
+    display: flex; flex-direction: column; gap: 2.5rem;
+  }
+  .space-text { order: 2; }
+  .space-img-wrap { order: 1; position: relative; }
+
+  .space-img {
+    width: 100%; border-radius: 4px;
+    aspect-ratio: 4/3; object-fit: cover;
+    display: block;
+  }
+  .space-img-badge {
+    position: absolute; bottom: -1rem; right: -0.5rem;
+    background: var(--rose);
+    color: var(--carbon);
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.6em 1em;
+    border-radius: 2px;
+  }
+
+  .space-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .stat-block { border-top: 1px solid var(--linen-dark); padding-top: 1rem; }
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--rose-dark);
+  }
+
+  @media (min-width: 768px) {
+    .space-section { padding: 7rem 6vw; }
+    .space-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 6vw; align-items: center;
+    }
+    .space-text { order: 1; }
+    .space-img-wrap { order: 2; }
+    .space-img-badge { right: -1.5rem; }
+  }
+
+  /* ── CRAFT / BARISTA ── */
+  .craft-section {
+    background: var(--linen-dark);
+    padding: 5rem 1.5rem;
+    position: relative;
+    clip-path: polygon(0 2rem, 100% 0, 100% calc(100% - 2rem), 0 100%);
+    margin: -1px 0;
+  }
+
+  .craft-layout {
+    display: flex; flex-direction: column; gap: 2.5rem;
+  }
+  .craft-img-col { position: relative; }
+  .craft-img {
+    width: 100%; border-radius: 50% 4px 4px 4px;
+    aspect-ratio: 3/4; object-fit: cover;
+    display: block;
+  }
+  .craft-img-line {
+    position: absolute; top: 1rem; left: -0.5rem;
+    width: 3rem; height: 1px;
+    background: var(--rose);
+  }
+
+  .craft-steps { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
+  .craft-step { display: flex; gap: 1.2rem; align-items: flex-start; }
+  .craft-step-num {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: var(--rose-dark);
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+    width: 2rem;
+  }
+  .craft-step-text h4 {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+  .craft-step-text p { font-size: 0.85rem; color: var(--carbon-soft); line-height: 1.8; }
+
+  @media (min-width: 768px) {
+    .craft-section { padding: 9rem 6vw; }
+    .craft-layout { display: grid; grid-template-columns: 5fr 7fr; gap: 6vw; align-items: center; }
+  }
+
+  /* ── PASTRY BAND ── */
+  .pastry-section {
+    background: var(--cream);
+    padding: 5rem 1.5rem;
+  }
+  .pastry-scroll-wrap {
+    display: flex; flex-direction: column; gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .pastry-card {
+    background: var(--linen);
+    border-radius: 3px;
+    overflow: hidden;
+    display: grid; grid-template-columns: 100px 1fr;
+    gap: 0;
+    transition: transform 0.3s;
+  }
+  .pastry-card:hover { transform: translateX(4px); }
+  .pastry-card-img { width: 100px; aspect-ratio: 1; object-fit: cover; }
+  .pastry-card-info { padding: 1rem 1.25rem; }
+  .pastry-card-name {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-style: italic;
+    margin-bottom: 0.25rem;
+  }
+  .pastry-card-desc { font-size: 0.78rem; color: rgba(20,20,20,0.5); line-height: 1.65; }
+  .pastry-card-price {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--rose-dark);
+    margin-top: 0.4rem;
+    display: block;
+  }
+
+  @media (min-width: 768px) {
+    .pastry-section { padding: 7rem 6vw; }
+    .pastry-scroll-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    .pastry-card { grid-template-columns: 120px 1fr; }
+    .pastry-card-img { width: 120px; }
+  }
+
+  /* ── VISIT ── */
+  .visit-section {
+    background: var(--carbon);
+    padding: 5rem 1.5rem;
+    color: var(--linen);
+    position: relative;
+    overflow: hidden;
+  }
+  .visit-section::before {
+    content: '';
+    position: absolute; top: -4rem; left: 0; right: 0; height: 4rem;
+    background: var(--cream);
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+  }
+
+  .visit-bg-text {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    font-family: var(--serif);
+    font-size: clamp(6rem, 18vw, 14rem);
+    font-weight: 700;
+    color: rgba(255,255,255,0.025);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .visit-grid {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1fr; gap: 3rem;
+  }
+  .visit-block-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rose);
+    display: block; margin-bottom: 1rem;
+  }
+  .visit-block h3 {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+  }
+  .visit-block p { font-size: 0.88rem; color: rgba(240,234,224,0.6); line-height: 1.85; }
+
+  .hours-row {
+    display: flex; justify-content: space-between;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(240,234,224,0.1);
+    font-size: 0.85rem;
+  }
+  .hours-row .day { color: rgba(240,234,224,0.5); font-size: 0.8rem; }
+  .hours-row .time { color: var(--linen); }
+  .hours-row .closed { color: var(--rose-dark); }
+
+  @media (min-width: 768px) {
+    .visit-section { padding: 8rem 6vw; }
+    .visit-grid { grid-template-columns: 1fr 1fr 1fr; gap: 4rem; }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--carbon);
+    border-top: 1px solid rgba(240,234,224,0.08);
+    padding: 2.5rem 1.5rem;
+    display: flex; flex-direction: column; gap: 1.5rem;
+    align-items: flex-start;
+  }
+  .footer-logo {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--linen);
+  }
+  .footer-logo span { color: var(--rose); }
+  .footer-copy {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: rgba(240,234,224,0.25);
+  }
+  .footer-social { display: flex; gap: 1rem; }
+  .footer-social a {
+    color: rgba(240,234,224,0.35);
+    transition: color 0.25s;
+    display: flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px;
+  }
+  .footer-social a:hover { color: var(--rose); }
+
+  @media (min-width: 768px) {
+    footer {
+      flex-direction: row; justify-content: space-between; align-items: center;
+      padding: 2.5rem 6vw;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">361<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#menu" data-lang-th="เมนู" data-lang-en="Menu">เมนู</a></li>
+    <li><a href="#signature" data-lang-th="ซิกเนเจอร์" data-lang-en="Signature">ซิกเนเจอร์</a></li>
+    <li><a href="#space" data-lang-th="พื้นที่" data-lang-en="Space">พื้นที่</a></li>
+    <li><a href="#visit" data-lang-th="เยี่ยมชม" data-lang-en="Visit">เยี่ยมชม</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="lang-sw" aria-label="Switch language">
+      <i data-lucide="globe" width="14" height="14"></i>
+      <span class="lang-sw__label">TH</span>
+    </button>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#menu" class="mob-link" data-lang-th="เมนู" data-lang-en="Menu">เมนู</a>
+  <a href="#signature" class="mob-link" data-lang-th="ซิกเนเจอร์" data-lang-en="Signature">ซิกเนเจอร์</a>
+  <a href="#space" class="mob-link" data-lang-th="พื้นที่" data-lang-en="Space">พื้นที่</a>
+  <a href="#visit" class="mob-link" data-lang-th="เยี่ยมชม" data-lang-en="Visit">เยี่ยมชม</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <img
+    class="hero-img"
+    src="https://images.unsplash.com/photo-1565650839149-2c48a094196c?w=1400&h=900&fit=crop"
+    alt="Interior of 361 Cafe"
+    loading="eager"
+  >
+  <div class="hero-band">
+    <span class="hero-label" data-lang-th="ก่อตั้ง 2561 — กรุงเทพมหานคร" data-lang-en="Est. 2018 — Bangkok">ก่อตั้ง 2561 — กรุงเทพมหานคร</span>
+    <h1 class="hero-title"><span data-lang-th="ที่ที่" data-lang-en="Where">ที่ที่</span><br><em><span data-lang-th="ความเงียบ" data-lang-en="Silence">ความเงียบ</span></em><br><span data-lang-th="มีรสชาติ" data-lang-en="Has Flavor">มีรสชาติ</span></h1>
+    <p class="hero-sub" data-lang-th="361 Cafe คือพื้นที่สำหรับผู้ที่เข้าใจว่ากาแฟที่ดีต้องใช้เวลา ทุกถ้วยคือการตั้งใจ ทุกช่วงเวลาคือของขวัญ" data-lang-en="361 Cafe is a space for those who understand that great coffee takes time. Every cup is intentional. Every moment, a gift.">361 Cafe คือพื้นที่สำหรับผู้ที่เข้าใจว่ากาแฟที่ดีต้องใช้เวลา ทุกถ้วยคือการตั้งใจ ทุกช่วงเวลาคือของขวัญ</p>
+    <a href="#menu" class="hero-cta" data-lang-th="ดูเมนู" data-lang-en="View Menu">ดูเมนู</a>
+  </div>
+  <div class="hero-scroll-line">
+    <span data-lang-th="เลื่อนลง" data-lang-en="Scroll">เลื่อนลง</span>
+  </div>
+</section>
+
+<!-- TICKER BAND -->
+<div class="text-band" aria-hidden="true">
+  <div class="text-band-inner">
+    <span>Specialty Coffee</span>
+    <span class="accent">—</span>
+    <span>Artisan Pastry</span>
+    <span class="accent">—</span>
+    <span>Bangkok, TH</span>
+    <span class="accent">—</span>
+    <span>Single Origin Beans</span>
+    <span class="accent">—</span>
+    <span>Mon–Sun 08–20h</span>
+    <span class="accent">—</span>
+    <span>361 Cafe</span>
+    <span class="accent">—</span>
+    <span>Specialty Coffee</span>
+    <span class="accent">—</span>
+    <span>Artisan Pastry</span>
+    <span class="accent">—</span>
+    <span>Bangkok, TH</span>
+    <span class="accent">—</span>
+    <span>Single Origin Beans</span>
+    <span class="accent">—</span>
+    <span>Mon–Sun 08–20h</span>
+    <span class="accent">—</span>
+    <span>361 Cafe</span>
+    <span class="accent">—</span>
+  </div>
+</div>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy" id="about">
+  <div class="phil-grid">
+    <span class="phil-number reveal">01 — Philosophy</span>
+    <h2 class="phil-heading reveal reveal-delay-1">
+      <span data-lang-th="กาแฟไม่ใช่แค่เครื่องดื่ม" data-lang-en="Coffee is not just a drink">กาแฟไม่ใช่แค่เครื่องดื่ม</span><br>
+      <em><span data-lang-th="มันคือการหยุดพัก" data-lang-en="It is a pause">มันคือการหยุดพัก</span></em>
+    </h2>
+    <p class="reveal reveal-delay-2" style="font-size:0.95rem; max-width:560px; color:var(--carbon-soft); line-height:1.85;" data-lang-th="เราเชื่อว่าทุกคนควรมีพื้นที่เป็นของตัวเอง — ที่ที่โลกเดินช้าลง และกาแฟหนึ่งถ้วยกลายเป็นช่วงเวลาที่มีความหมาย" data-lang-en="We believe everyone deserves a space of their own — where the world slows down and a single cup becomes something meaningful.">เราเชื่อว่าทุกคนควรมีพื้นที่เป็นของตัวเอง — ที่ที่โลกเดินช้าลง และกาแฟหนึ่งถ้วยกลายเป็นช่วงเวลาที่มีความหมาย</p>
+    <div class="phil-cols">
+      <div class="phil-col reveal reveal-delay-2">
+        <span class="phil-col-label" data-lang-th="วัตถุดิบ" data-lang-en="Sourcing">วัตถุดิบ</span>
+        <p data-lang-th="เราคัดสรรเมล็ดกาแฟ Single Origin จากไร่ขนาดเล็กในเชียงราย เชียงใหม่ และแหล่งพิเศษในเอธิโอเปีย ทุกล็อตผ่านการรับรองโดยตรงจากเกษตรกร" data-lang-en="We source Single Origin beans from small farms in Chiang Rai, Chiang Mai, and select estates in Ethiopia — every lot directly verified with the farmer.">เราคัดสรรเมล็ดกาแฟ Single Origin จากไร่ขนาดเล็กในเชียงราย เชียงใหม่ และแหล่งพิเศษในเอธิโอเปีย ทุกล็อตผ่านการรับรองโดยตรงจากเกษตรกร</p>
+      </div>
+      <div class="phil-col reveal reveal-delay-3">
+        <span class="phil-col-label" data-lang-th="กระบวนการ" data-lang-en="Process">กระบวนการ</span>
+        <p data-lang-th="ทุกถ้วยชงโดยบาริสต้าที่ผ่านการฝึกอย่างน้อย 200 ชั่วโมง อุณหภูมิ เวลา และแรงดันถูกวัดอย่างละเอียด ไม่มีอะไรถูกปล่อยไว้กับโชค" data-lang-en="Every cup is brewed by a barista with at least 200 hours of training. Temperature, timing, and pressure are measured precisely — nothing is left to chance.">ทุกถ้วยชงโดยบาริสต้าที่ผ่านการฝึกอย่างน้อย 200 ชั่วโมง อุณหภูมิ เวลา และแรงดันถูกวัดอย่างละเอียด ไม่มีอะไรถูกปล่อยไว้กับโชค</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <div style="max-width:900px; margin:0 auto;">
+    <span class="section-label reveal" data-lang-th="02 — เมนูของเรา" data-lang-en="02 — Our Menu">02 — เมนูของเรา</span>
+    <h2 class="section-title reveal reveal-delay-1"><span data-lang-th="ทุกรายการ" data-lang-en="Every Item" style="display:block">ทุกรายการ</span><span data-lang-th="ผ่านการเลือกสรร" data-lang-en="Carefully Chosen">ผ่านการเลือกสรร</span></h2>
+
+    <div class="menu-tabs reveal reveal-delay-2">
+      <button class="menu-tab active" data-tab="espresso" data-lang-th="เอสเปรสโซ" data-lang-en="Espresso">เอสเปรสโซ</button>
+      <button class="menu-tab" data-tab="filter" data-lang-th="กาแฟกรอง" data-lang-en="Filter">กาแฟกรอง</button>
+      <button class="menu-tab" data-tab="nonc" data-lang-th="ไม่มีคาเฟอีน" data-lang-en="Non-Caffeine">ไม่มีคาเฟอีน</button>
+      <button class="menu-tab" data-tab="seasonal" data-lang-th="ตามฤดูกาล" data-lang-en="Seasonal">ตามฤดูกาล</button>
+    </div>
+
+    <div class="menu-panel active reveal reveal-delay-3" id="panel-espresso">
+      <div class="menu-items">
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <div class="menu-item-name" data-lang-th="เอสเปรสโซ" data-lang-en="Espresso">เอสเปรสโซ</div>
+            <div class="menu-item-desc" data-lang-th="Double shot, 18g — ผลไม้ดำ, ดาร์กช็อกโกแลต" data-lang-en="Double shot, 18g — dark fruit, bittersweet chocolate">Double shot, 18g — ผลไม้ดำ, ดาร์กช็อกโกแลต</div>
+          </div>
+          <div class="menu-item-price">฿80</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <div class="menu-item-name" data-lang-th="อเมริกาโน่" data-lang-en="Americano">อเมริกาโน่</div>
+            <div class="menu-item-desc" data-lang-th="Espresso + น้ำร้อน — สมดุลและเข้มข้น" data-lang-en="Espresso + hot water — balanced and full-bodied">Espresso + น้ำร้อน — สมดุลและเข้มข้น</div>
+          </div>
+          <div class="menu-item-price">฿90</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <div class="menu-item-name" data-lang-th="แฟลต ไวท์" data-lang-en="Flat White">แฟลต ไวท์</div>
+            <div class="menu-item-desc" data-lang-th="Double ristretto + นมไอน้ำ ไมโครโฟม" data-lang-en="Double ristretto + steamed milk, microfoam">Double ristretto + นมไอน้ำ ไมโครโฟม</div>
+          </div>
+          <div class="menu-item-price">฿110</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <div class="menu-item-name" data-lang-th="ลาเต้" data-lang-en="Latte">ลาเต้</div>
+            <div class="menu-item-desc" data-lang-th="กาแฟกลมกล่อม นม เนียนเย็น เหมาะสำหรับทุกวัน" data-lang-en="Smooth espresso, silky steamed milk — an everyday ritual">กาแฟกลมกล่อม นม เนียนเย็น เหมาะสำหรับทุกวัน</div>
+          </div>
+          <div class="menu-item-price">฿115</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <div class="menu-item-name" data-lang-th="คอร์ทาโด้" data-lang-en="Cortado">คอร์ทาโด้</div>
+            <div class="menu-item-desc" data-lang-th="Espresso : นม 1:1 — เข้มข้น กระชับ" data-lang-en="Espresso to milk 1:1 — intense, precise">Espresso : นม 1:1 — เข้มข้น กระชับ</div>
+          </div>
+          <div class="menu-item-price">฿100</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <div class="menu-item-name" data-lang-th="คาปูชิโน่" data-lang-en="Cappuccino">คาปูชิโน่</div>
+            <div class="menu-item-desc" data-lang-th="คลาสสิก Wet-style — ฟองนมหนาแน่น มากประสบการณ์" data-lang-en="Classic wet-style — dense foam, full espresso character">คลาสสิก Wet-style — ฟองนมหนาแน่น มากประสบการณ์</div>
+          </div>
+          <div class="menu-item-price">฿110</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="panel-filter">
+      <div class="menu-items">
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <div class="menu-item-name" data-lang-th="V60 Pour Over" data-lang-en="V60 Pour Over">V60 Pour Over</div>
+            <div class="menu-item-desc" data-lang-th="เมล็ดคัดพิเศษ คั่วกลาง — ดอกไม้, ซิตรัส" data-lang-en="Curated single origin, medium roast — floral, citrus">เมล็ดคัดพิเศษ คั่วกลาง — ดอกไม้, ซิตรัส</div>
+          </div>
+          <div class="menu-item-price">฿150</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <div class="menu-item-name" data-lang-th="Cold Brew 12h" data-lang-en="Cold Brew 12h">Cold Brew 12h</div>
+            <div class="menu-item-desc" data-lang-th="แช่เย็น 12 ชั่วโมง — ดื่มด่ำ, หอม, ไม่ขม" data-lang-en="12-hour cold steep — smooth, aromatic, never bitter">แช่เย็น 12 ชั่วโมง — ดื่มด่ำ, หอม, ไม่ขม</div>
+          </div>
+          <div class="menu-item-price">฿130</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <div class="menu-item-name" data-lang-th="Aeropress" data-lang-en="Aeropress">Aeropress</div>
+            <div class="menu-item-desc" data-lang-th="กดด้วยมือ, เข้มข้น, สะอาด — สไตล์บาริสต้า" data-lang-en="Hand-pressed, concentrated and clean — barista's choice">กดด้วยมือ, เข้มข้น, สะอาด — สไตล์บาริสต้า</div>
+          </div>
+          <div class="menu-item-price">฿140</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <div class="menu-item-name" data-lang-th="Chemex" data-lang-en="Chemex">Chemex</div>
+            <div class="menu-item-desc" data-lang-th="ใส, บอบบาง, เหมาะสำหรับช่วงเช้าที่ช้า" data-lang-en="Crystal clarity, delicate body — made for slow mornings">ใส, บอบบาง, เหมาะสำหรับช่วงเช้าที่ช้า</div>
+          </div>
+          <div class="menu-item-price">฿160</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="panel-nonc">
+      <div class="menu-items">
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <div class="menu-item-name" data-lang-th="ชาอู่หลง ร้อน" data-lang-en="Oolong Hot">ชาอู่หลง ร้อน</div>
+            <div class="menu-item-desc" data-lang-th="ชาจากดอยแม่สลอง — หอม, อ่อนโยน" data-lang-en="High-mountain oolong from Mae Salong — fragrant and gentle">ชาจากดอยแม่สลอง — หอม, อ่อนโยน</div>
+          </div>
+          <div class="menu-item-price">฿100</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <div class="menu-item-name" data-lang-th="ชาสมุนไพรกรุงเทพ" data-lang-en="Bangkok Herb Tea">ชาสมุนไพรกรุงเทพ</div>
+            <div class="menu-item-desc" data-lang-th="ตะไคร้, ขิง, ใบเตย — ดีต่อใจ" data-lang-en="Lemongrass, ginger, pandan — a local blend for the soul">ตะไคร้, ขิง, ใบเตย — ดีต่อใจ</div>
+          </div>
+          <div class="menu-item-price">฿90</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <div class="menu-item-name" data-lang-th="มัทฉะลาเต้" data-lang-en="Matcha Latte">มัทฉะลาเต้</div>
+            <div class="menu-item-desc" data-lang-th="มัทฉะเกรด Ceremonial จากญี่ปุ่น + นมโอ๊ต" data-lang-en="Ceremonial-grade matcha from Japan + oat milk">มัทฉะเกรด Ceremonial จากญี่ปุ่น + นมโอ๊ต</div>
+          </div>
+          <div class="menu-item-price">฿130</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <div class="menu-item-name" data-lang-th="น้ำมะตูม" data-lang-en="Bael Fruit Water">น้ำมะตูม</div>
+            <div class="menu-item-desc" data-lang-th="ผลไม้ไทยโบราณ รสหวานธรรมชาติ ไม่เติมน้ำตาล" data-lang-en="Ancient Thai bael fruit, naturally sweet, no added sugar">ผลไม้ไทยโบราณ รสหวานธรรมชาติ ไม่เติมน้ำตาล</div>
+          </div>
+          <div class="menu-item-price">฿80</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="panel-seasonal">
+      <div class="menu-items">
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <div class="menu-item-name" data-lang-th="Rose Ash Latte" data-lang-en="Rose Ash Latte">Rose Ash Latte</div>
+            <div class="menu-item-desc" data-lang-th="กุหลาบเถ้า + เอสเปรสโซ + นมข้นหวาน — ซิกเนเจอร์ฤดูร้อน" data-lang-en="Rose ash + espresso + condensed milk — our summer signature">กุหลาบเถ้า + เอสเปรสโซ + นมข้นหวาน — ซิกเนเจอร์ฤดูร้อน</div>
+          </div>
+          <div class="menu-item-price">฿145</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <div class="menu-item-name" data-lang-th="ชาดำ Hojicha ลาเต้" data-lang-en="Hojicha Latte">ชาดำ Hojicha ลาเต้</div>
+            <div class="menu-item-desc" data-lang-th="ชาญี่ปุ่นคั่ว หอมอ่อน + นมอัลมอนด์ ไม่ขม" data-lang-en="Roasted Japanese tea, subtle smoky sweetness + almond milk">ชาญี่ปุ่นคั่ว หอมอ่อน + นมอัลมอนด์ ไม่ขม</div>
+          </div>
+          <div class="menu-item-price">฿125</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-left">
+            <div class="menu-item-name" data-lang-th="Yuzu Tonic" data-lang-en="Yuzu Tonic">Yuzu Tonic</div>
+            <div class="menu-item-desc" data-lang-th="ยูซุเย็น + โทนิควอเตอร์ + เปลือกส้ม — สดชื่น" data-lang-en="Yuzu concentrate + premium tonic + orange zest — refreshing">ยูซุเย็น + โทนิควอเตอร์ + เปลือกส้ม — สดชื่น</div>
+          </div>
+          <div class="menu-item-price">฿135</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNATURE DRINKS -->
+<section class="signature-section" id="signature">
+  <div style="max-width:960px; margin:0 auto;">
+    <span class="section-label sig-label reveal" data-lang-th="03 — ซิกเนเจอร์" data-lang-en="03 — Signature">03 — ซิกเนเจอร์</span>
+    <h2 class="section-title sig-title reveal reveal-delay-1"><span data-lang-th="รสชาติที่" data-lang-en="Flavors Made" style="display:block">รสชาติที่</span><span data-lang-th="ทำขึ้นเพื่อจดจำ" data-lang-en="to Remember">ทำขึ้นเพื่อจดจำ</span></h2>
+    <div class="sig-cards">
+      <div class="sig-card reveal reveal-delay-1">
+        <img class="sig-card-img" src="https://images.unsplash.com/photo-1734770762633-05d2aed2e180?w=600&h=520&fit=crop" alt="Signature espresso cup">
+        <div class="sig-card-body">
+          <span class="sig-card-tag" data-lang-th="กาแฟซิกเนเจอร์" data-lang-en="Signature Coffee">กาแฟซิกเนเจอร์</span>
+          <div class="sig-card-name" data-lang-th="361 Noir" data-lang-en="361 Noir">361 Noir</div>
+          <p class="sig-card-desc" data-lang-th="เมล็ดแอฟริกันคั่วเข้มผสมกับน้ำเปล่าอุณหภูมิ 93°C — หนักและซับซ้อนอย่างงดงาม" data-lang-en="African dark-roast bloom with 93°C spring water — heavy and beautifully complex.">เมล็ดแอฟริกันคั่วเข้มผสมกับน้ำเปล่าอุณหภูมิ 93°C — หนักและซับซ้อนอย่างงดงาม</p>
+          <span class="sig-card-price">฿160</span>
+        </div>
+      </div>
+      <div class="sig-card reveal reveal-delay-2">
+        <img class="sig-card-img" src="https://images.unsplash.com/photo-1709293294555-984e66bafe36?w=600&h=520&fit=crop" alt="Coffee pour close up">
+        <div class="sig-card-body">
+          <span class="sig-card-tag" data-lang-th="กาแฟดำพิเศษ" data-lang-en="Specialty Black">กาแฟดำพิเศษ</span>
+          <div class="sig-card-name" data-lang-th="Linen Pour" data-lang-en="Linen Pour">Linen Pour</div>
+          <p class="sig-card-desc" data-lang-th="V60 กรองช้า เมล็ดเชียงราย Natural — แอปเปิ้ลเขียว, มะนาว, กลิ่นหอมดอกไม้ป่า" data-lang-en="Slow V60 pour, Chiang Rai natural — green apple, yuzu, wild flower finish.">V60 กรองช้า เมล็ดเชียงราย Natural — แอปเปิ้ลเขียว, มะนาว, กลิ่นหอมดอกไม้ป่า</p>
+          <span class="sig-card-price">฿175</span>
+        </div>
+      </div>
+      <div class="sig-card reveal reveal-delay-3">
+        <img class="sig-card-img" src="https://images.unsplash.com/photo-1770494347810-5aa9e689f13e?w=600&h=520&fit=crop" alt="Barista crafting latte art">
+        <div class="sig-card-body">
+          <span class="sig-card-tag" data-lang-th="นมลาเต้พิเศษ" data-lang-en="Milk Specialty">นมลาเต้พิเศษ</span>
+          <div class="sig-card-name" data-lang-th="Rose Ash Latte" data-lang-en="Rose Ash Latte">Rose Ash Latte</div>
+          <p class="sig-card-desc" data-lang-th="กุหลาบบดละเอียด + นมไอน้ำ + Double Ristretto — กลีบดอกไม้ลอยบนครีม" data-lang-en="Ground rose petal + steamed milk + double ristretto — petals floating on cream.">กุหลาบบดละเอียด + นมไอน้ำ + Double Ristretto — กลีบดอกไม้ลอยบนครีม</p>
+          <span class="sig-card-price">฿145</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPACE SECTION -->
+<section class="space-section" id="space">
+  <div style="max-width:960px; margin:0 auto;">
+    <div class="space-layout">
+      <div class="space-text">
+        <span class="section-label reveal" data-lang-th="04 — พื้นที่ของเรา" data-lang-en="04 — Our Space">04 — พื้นที่ของเรา</span>
+        <h2 class="section-title reveal reveal-delay-1"><span data-lang-th="ออกแบบมาเพื่อ" data-lang-en="Designed for" style="display:block">ออกแบบมาเพื่อ</span><span data-lang-th="การอยู่นิ่ง" data-lang-en="Stillness">การอยู่นิ่ง</span></h2>
+        <p class="reveal reveal-delay-2" style="font-size:0.92rem; color:var(--carbon-soft); line-height:1.85; max-width:480px;" data-lang-th="ทุกองค์ประกอบในร้านถูกเลือกอย่างตั้งใจ — ตั้งแต่แสงที่กรองผ่านม่านบางไปจนถึงเก้าอี้ที่นั่งสบายชั่วโมง เสียงเพลงในระดับที่ฟังแค่พอได้ยิน และกลิ่นกาแฟที่ไม่เคยหายไป" data-lang-en="Every element of the space was chosen intentionally — from light filtering through linen sheers to chairs you can sit in for hours. Music just audible enough. Coffee scent that never leaves.">ทุกองค์ประกอบในร้านถูกเลือกอย่างตั้งใจ — ตั้งแต่แสงที่กรองผ่านม่านบางไปจนถึงเก้าอี้ที่นั่งสบายชั่วโมง เสียงเพลงในระดับที่ฟังแค่พอได้ยิน และกลิ่นกาแฟที่ไม่เคยหายไป</p>
+        <div class="space-stats reveal reveal-delay-3">
+          <div class="stat-block">
+            <div class="stat-num">48</div>
+            <div class="stat-label" data-lang-th="ที่นั่ง" data-lang-en="Seats">ที่นั่ง</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-num">2</div>
+            <div class="stat-label" data-lang-th="ชั้น" data-lang-en="Floors">ชั้น</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-num">1</div>
+            <div class="stat-label" data-lang-th="ระเบียงส่วนตัว" data-lang-en="Private Terrace">ระเบียงส่วนตัว</div>
+          </div>
+          <div class="stat-block">
+            <div class="stat-num">Wi-Fi</div>
+            <div class="stat-label" data-lang-th="ฟรี ทุกชั้น" data-lang-en="Free, all floors">ฟรี ทุกชั้น</div>
+          </div>
+        </div>
+      </div>
+      <div class="space-img-wrap reveal reveal-delay-2">
+        <img class="space-img" src="https://images.unsplash.com/photo-1732472613570-8618d77339dd?w=800&h=600&fit=crop" alt="Interior of 361 Cafe with natural light">
+        <span class="space-img-badge" data-lang-th="ชั้น 2 — ระเบียง" data-lang-en="2F — Terrace">ชั้น 2 — ระเบียง</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CRAFT SECTION -->
+<section class="craft-section">
+  <div style="max-width:960px; margin:0 auto; padding:2rem 0;">
+    <div class="craft-layout">
+      <div class="craft-img-col reveal">
+        <div class="craft-img-line"></div>
+        <img class="craft-img" src="https://images.unsplash.com/photo-1770123024494-776bc2d3836b?w=600&h=800&fit=crop" alt="Barista serving coffee with latte art">
+      </div>
+      <div>
+        <span class="section-label reveal" data-lang-th="05 — งานฝีมือ" data-lang-en="05 — Craft">05 — งานฝีมือ</span>
+        <h2 class="section-title reveal reveal-delay-1"><span data-lang-th="บาริสต้าไม่ใช่" data-lang-en="The Barista" style="display:block">บาริสต้าไม่ใช่</span><span data-lang-th="แค่คนชงกาแฟ" data-lang-en="is an Artist">แค่คนชงกาแฟ</span></h2>
+        <div class="craft-steps">
+          <div class="craft-step reveal reveal-delay-1">
+            <span class="craft-step-num">01</span>
+            <div class="craft-step-text">
+              <h4 data-lang-th="คัดเมล็ด" data-lang-en="Bean Selection">คัดเมล็ด</h4>
+              <p data-lang-th="เราคั่วเองในร้านทุกสัปดาห์ ด้วยเครื่องคั่วขนาด 3kg เพื่อรักษาความสดของเมล็ด" data-lang-en="We roast in-house every week on a 3kg drum roaster — freshness is non-negotiable.">เราคั่วเองในร้านทุกสัปดาห์ ด้วยเครื่องคั่วขนาด 3kg เพื่อรักษาความสดของเมล็ด</p>
+            </div>
+          </div>
+          <div class="craft-step reveal reveal-delay-2">
+            <span class="craft-step-num">02</span>
+            <div class="craft-step-text">
+              <h4 data-lang-th="บดสด" data-lang-en="Fresh Grind">บดสด</h4>
+              <p data-lang-th="บดเมล็ดต่อหนึ่งออเดอร์เท่านั้น เครื่องบดปรับค่า micron ทุกเช้า" data-lang-en="Ground per order only. Grinder calibrated to the micron every morning.">บดเมล็ดต่อหนึ่งออเดอร์เท่านั้น เครื่องบดปรับค่า micron ทุกเช้า</p>
+            </div>
+          </div>
+          <div class="craft-step reveal reveal-delay-3">
+            <span class="craft-step-num">03</span>
+            <div class="craft-step-text">
+              <h4 data-lang-th="ดึงช็อต" data-lang-en="Pull the Shot">ดึงช็อต</h4>
+              <p data-lang-th="แรงดัน 9 บาร์ เวลา 27–32 วินาที อุณหภูมิ 93°C — ไม่มีช็อตไหนเหมือนกันสองครั้ง" data-lang-en="9 bar pressure, 27–32 seconds, 93°C — no two shots are ever quite the same.">แรงดัน 9 บาร์ เวลา 27–32 วินาที อุณหภูมิ 93°C — ไม่มีช็อตไหนเหมือนกันสองครั้ง</p>
+            </div>
+          </div>
+          <div class="craft-step reveal reveal-delay-4">
+            <span class="craft-step-num">04</span>
+            <div class="craft-step-text">
+              <h4 data-lang-th="เสิร์ฟด้วยใจ" data-lang-en="Serve with Care">เสิร์ฟด้วยใจ</h4>
+              <p data-lang-th="ทุกถ้วยมาพร้อมน้ำเปล่าอุณหภูมิห้อง และคำอธิบายกาแฟ — เพราะทุกคนควรรู้ว่าตัวเองกำลังดื่มอะไร" data-lang-en="Every cup arrives with room-temperature water and a brief note on the coffee — because everyone deserves to know what they are drinking.">ทุกถ้วยมาพร้อมน้ำเปล่าอุณหภูมิห้อง และคำอธิบายกาแฟ — เพราะทุกคนควรรู้ว่าตัวเองกำลังดื่มอะไร</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PASTRY -->
+<section class="pastry-section">
+  <div style="max-width:960px; margin:0 auto;">
+    <span class="section-label reveal" data-lang-th="06 — ขนมอบ" data-lang-en="06 — Pastry">06 — ขนมอบ</span>
+    <h2 class="section-title reveal reveal-delay-1"><span data-lang-th="อบสดทุกเช้า" data-lang-en="Baked Fresh" style="display:block">อบสดทุกเช้า</span><span data-lang-th="ก่อนร้านเปิด" data-lang-en="Before We Open">ก่อนร้านเปิด</span></h2>
+    <div class="pastry-scroll-wrap">
+      <div class="pastry-card reveal">
+        <img class="pastry-card-img" src="https://images.unsplash.com/photo-1643944471768-2d2eac3afb6d?w=240&h=240&fit=crop" alt="Pastry display">
+        <div class="pastry-card-info">
+          <div class="pastry-card-name" data-lang-th="ครัวซองต์เนยสด" data-lang-en="Butter Croissant">ครัวซองต์เนยสด</div>
+          <div class="pastry-card-desc" data-lang-th="เนยนำเข้าจากฝรั่งเศส พับ 27 ชั้น อบกรอบทุกเช้า" data-lang-en="French butter, 27 layers, baked crisp every morning.">เนยนำเข้าจากฝรั่งเศส พับ 27 ชั้น อบกรอบทุกเช้า</div>
+          <span class="pastry-card-price">฿75</span>
+        </div>
+      </div>
+      <div class="pastry-card reveal reveal-delay-1">
+        <img class="pastry-card-img" src="https://images.unsplash.com/photo-1702770443047-22a2750a84dc?w=240&h=240&fit=crop" alt="Pastry selection">
+        <div class="pastry-card-info">
+          <div class="pastry-card-name" data-lang-th="Pain au Chocolat" data-lang-en="Pain au Chocolat">Pain au Chocolat</div>
+          <div class="pastry-card-desc" data-lang-th="ช็อกโกแลต 72% เบลเยียม หลอมใน dough — เย็นด้านนอก ร้อนด้านใน" data-lang-en="72% Belgian chocolate inside laminated dough — cool outside, warm within.">ช็อกโกแลต 72% เบลเยียม หลอมใน dough — เย็นด้านนอก ร้อนด้านใน</div>
+          <span class="pastry-card-price">฿85</span>
+        </div>
+      </div>
+      <div class="pastry-card reveal reveal-delay-2">
+        <img class="pastry-card-img" src="https://images.unsplash.com/photo-1559530729-f0a09106f3da?w=240&h=240&fit=crop" alt="Coffee and notebook minimal">
+        <div class="pastry-card-info">
+          <div class="pastry-card-name" data-lang-th="บานาน่าบราวน์บัตเตอร์" data-lang-en="Brown Butter Banana Loaf">บานาน่าบราวน์บัตเตอร์</div>
+          <div class="pastry-card-desc" data-lang-th="กล้วยหอมไทย + เนยสีน้ำตาล — ช촉촉, หวานไม่มาก เหมาะกับกาแฟดำ" data-lang-en="Thai banana + brown butter — moist, lightly sweet, pairs beautifully with black coffee.">กล้วยหอมไทย + เนยสีน้ำตาล — ชุ่ม, หวานไม่มาก เหมาะกับกาแฟดำ</div>
+          <span class="pastry-card-price">฿70</span>
+        </div>
+      </div>
+      <div class="pastry-card reveal reveal-delay-3">
+        <img class="pastry-card-img" src="https://images.unsplash.com/photo-1519831802596-6aadd85ff671?w=240&h=240&fit=crop" alt="Minimal white coffee cup">
+        <div class="pastry-card-info">
+          <div class="pastry-card-name" data-lang-th="ทาร์ตผลไม้สด" data-lang-en="Fresh Fruit Tart">ทาร์ตผลไม้สด</div>
+          <div class="pastry-card-desc" data-lang-th="ครีมพาทิสเซอรีวานิลลา + ผลไม้สดตามฤดู — เบา สะอาด สดใส" data-lang-en="Vanilla pastry cream + seasonal fresh fruit — light, clean, and bright.">ครีมพาทิสเซอรีวานิลลา + ผลไม้สดตามฤดู — เบา สะอาด สดใส</div>
+          <span class="pastry-card-price">฿95</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section class="visit-section" id="visit">
+  <div class="visit-bg-text" aria-hidden="true">361</div>
+  <div style="max-width:960px; margin:0 auto; position:relative; z-index:1;">
+    <span class="section-label sig-label reveal" data-lang-th="07 — มาเยี่ยมเรา" data-lang-en="07 — Come Visit">07 — มาเยี่ยมเรา</span>
+    <h2 class="section-title sig-title reveal reveal-delay-1"><span data-lang-th="เราอยู่ที่นี่" data-lang-en="We're Here" style="display:block">เราอยู่ที่นี่</span><span data-lang-th="ทุกวัน" data-lang-en="Every Day">ทุกวัน</span></h2>
+    <div class="visit-grid">
+      <div class="visit-block reveal reveal-delay-1">
+        <span class="visit-block-label" data-lang-th="ที่อยู่" data-lang-en="Address">ที่อยู่</span>
+        <h3 data-lang-th="361 ซอยอารีย์" data-lang-en="361 Ari Soi 4">361 ซอยอารีย์</h3>
+        <p><span data-lang-th="ซอยอารีย์ 4 แขวงสามเสนใน เขตพญาไท กรุงเทพมหานคร 10400" data-lang-en="Ari Soi 4, Sam Sen Nai, Phaya Thai, Bangkok 10400">ซอยอารีย์ 4 แขวงสามเสนใน เขตพญาไท กรุงเทพมหานคร 10400</span><br><br><span data-lang-th="BTS อารีย์ ออก 4 เดิน 3 นาที" data-lang-en="BTS Ari, Exit 4, 3 min walk">BTS อารีย์ ออก 4 เดิน 3 นาที</span></p>
+      </div>
+      <div class="visit-block reveal reveal-delay-2">
+        <span class="visit-block-label" data-lang-th="เวลาทำการ" data-lang-en="Hours">เวลาทำการ</span>
+        <div class="hours-row"><span class="day" data-lang-th="จันทร์ — ศุกร์" data-lang-en="Mon — Fri">จันทร์ — ศุกร์</span><span class="time">08:00 — 20:00</span></div>
+        <div class="hours-row"><span class="day" data-lang-th="เสาร์" data-lang-en="Saturday">เสาร์</span><span class="time">08:00 — 21:00</span></div>
+        <div class="hours-row"><span class="day" data-lang-th="อาทิตย์" data-lang-en="Sunday">อาทิตย์</span><span class="time">09:00 — 20:00</span></div>
+        <div class="hours-row"><span class="day" data-lang-th="วันหยุดนักขัตฤกษ์" data-lang-en="Public Holidays">วันหยุดนักขัตฤกษ์</span><span class="closed" data-lang-th="ตามประกาศ" data-lang-en="See announcements">ตามประกาศ</span></div>
+      </div>
+      <div class="visit-block reveal reveal-delay-3">
+        <span class="visit-block-label" data-lang-th="ติดต่อ" data-lang-en="Contact">ติดต่อ</span>
+        <h3 data-lang-th="จองพื้นที่ / สอบถาม" data-lang-en="Reserve / Inquire">จองพื้นที่ / สอบถาม</h3>
+        <p><span data-lang-th="สำหรับกลุ่มตั้งแต่ 8 คนขึ้นไป หรือจัดงานส่วนตัว กรุณาติดต่อล่วงหน้า" data-lang-en="For groups of 8+ or private events, please contact us in advance.">สำหรับกลุ่มตั้งแต่ 8 คนขึ้นไป หรือจัดงานส่วนตัว กรุณาติดต่อล่วงหน้า</span></p>
+        <p style="margin-top:1rem;">
+          <a href="tel:+6621234567" style="color:var(--rose); text-decoration:none; font-family:var(--mono); font-size:0.85rem;">+66 2 123 4567</a><br>
+          <a href="mailto:hello@361cafe.th" style="color:rgba(240,234,224,0.45); text-decoration:none; font-family:var(--mono); font-size:0.75rem;">hello@361cafe.th</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">361<span>.</span></div>
+    <div class="footer-copy" style="margin-top:0.5rem;" data-lang-th="© 2568 361 Cafe — กรุงเทพมหานคร" data-lang-en="© 2025 361 Cafe — Bangkok">© 2568 361 Cafe — กรุงเทพมหานคร</div>
+  </div>
+  <div class="footer-social">
+    <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+    <a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+    <a href="#" aria-label="Line"><i data-lucide="message-circle"></i></a>
+  </div>
+</footer>
+
+<script>
+// Navbar scroll
+(function(){
+  var nav = document.getElementById('navbar');
+  window.addEventListener('scroll', function(){
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+})();
+
+// Hamburger
+(function(){
+  var btn = document.getElementById('hamburger');
+  var menu = document.getElementById('mobileMenu');
+  btn.addEventListener('click', function(){
+    btn.classList.toggle('open');
+    menu.classList.toggle('open');
+  });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      btn.classList.remove('open');
+      menu.classList.remove('open');
+    });
+  });
+})();
+
+// Menu tabs
+(function(){
+  var tabs = document.querySelectorAll('.menu-tab');
+  var panels = document.querySelectorAll('.menu-panel');
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){ t.classList.remove('active'); });
+      panels.forEach(function(p){ p.classList.remove('active'); });
+      tab.classList.add('active');
+      var target = document.getElementById('panel-' + tab.dataset.tab);
+      if(target) target.classList.add('active');
+    });
+  });
+})();
+
+// Scroll reveals
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(function(el){ io.observe(el); });
+})();
+</script>
+
+<!-- LANG SWITCH (exact required script) -->
+<script>
+(function(){var K='site-lang',L=localStorage.getItem(K)||'th';function S(l){L=l;localStorage.setItem(K,l);document.documentElement.lang=l;document.querySelectorAll('[data-lang-th]').forEach(function(e){var t=e.getAttribute('data-lang-'+l);if(t!==null){e.textContent=t}});var lb=document.querySelector('.lang-sw__label');if(lb){lb.textContent=l.toUpperCase()}}var sw=document.querySelector('.lang-sw');if(sw){sw.addEventListener('click',function(){S(L==='th'?'en':'th')});sw.style.cursor='pointer'}if(L!=='th'){S(L)}})();
+</script>
+
+<script>
+lucide.createIcons();
+</script>
+</body>
+</html>
