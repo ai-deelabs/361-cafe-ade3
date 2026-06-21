@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>361 Cafe — คาเฟ่สไตล์โมเดิร์น กรุงเทพฯ</title>
+  <meta name="description" content="361 Cafe คาเฟ่สไตล์โมเดิร์น กาแฟคุณภาพสูง บรรยากาศขาวดำ ใจกลางกรุงเทพฯ">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #f4f2ee;
+      --gray: #8c8580;
+      --gray-light: #d0ccc6;
+      --gray-dark: #2e2b28;
+      --concrete: #b5afa8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'IBM Plex Sans Thai', 'Barlow', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.8;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem 1.5rem;
+      transition: background 0.4s, padding 0.4s;
+    }
+    #navbar.scrolled {
+      background: rgba(10,10,10,0.95);
+      padding: 0.85rem 1.5rem;
+      backdrop-filter: blur(10px);
+    }
+    .nav-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.9rem;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .nav-links {
+      display: none;
+      list-style: none;
+      gap: 2.5rem;
+      align-items: center;
+    }
+    .nav-links a {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(244,242,238,0.75);
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-right { display: flex; align-items: center; gap: 1.2rem; }
+
+    .lang-sw {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      color: rgba(244,242,238,0.8);
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+    .lang-sw:hover { color: var(--white); }
+    .lang-sw svg { flex-shrink: 0; }
+
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 5px;
+      min-width: 44px;
+      min-height: 44px;
+      justify-content: center;
+      align-items: center;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--white);
+      transition: all 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: var(--black);
+      z-index: 190;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2rem 2.5rem;
+      gap: 0;
+      transform: translateX(100%);
+      transition: transform 0.45s cubic-bezier(0.77,0,0.175,1);
+    }
+    .mobile-menu.open { transform: translateX(0); }
+    .mobile-menu a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.8rem, 10vw, 4.5rem);
+      color: var(--white);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--gray-dark);
+      width: 100%;
+      transition: color 0.2s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--concrete); }
+
+    @media (min-width: 768px) {
+      .nav-links { display: flex; }
+      .hamburger { display: none; }
+      #navbar { padding: 1.4rem 4rem; }
+      #navbar.scrolled { padding: 0.85rem 4rem; }
+    }
+
+    /* ── HERO ── */
+    #hero {
+      height: 100svh;
+      min-height: 600px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: var(--black);
+    }
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.3;
+      transform: scale(1.06);
+      transition: transform 9s ease-out, opacity 0.8s ease;
+    }
+    .hero-img.loaded { transform: scale(1); opacity: 0.32; }
+
+    /* Split-screen vertical line */
+    .hero-split {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(244,242,238,0.12) 30%, rgba(244,242,238,0.12) 70%, transparent);
+      display: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding: 2rem 1.5rem 3.5rem;
+    }
+    .hero-eyebrow {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--concrete);
+      margin-bottom: 0.8rem;
+    }
+    .hero-headline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(5.5rem, 28vw, 20rem);
+      line-height: 0.86;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      margin-bottom: 2rem;
+    }
+    .hero-headline .outline {
+      -webkit-text-stroke: 2px rgba(244,242,238,0.6);
+      color: transparent;
+    }
+    .hero-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .hero-desc {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      font-size: 0.88rem;
+      color: var(--concrete);
+      line-height: 1.9;
+      max-width: 300px;
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--white);
+      color: var(--black);
+      padding: 0.9rem 2rem;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      align-self: flex-start;
+      min-height: 44px;
+      transition: background 0.3s, color 0.3s;
+    }
+    .hero-cta:hover { background: var(--concrete); }
+
+    @media (min-width: 768px) {
+      .hero-split { display: block; }
+      .hero-content { padding: 3rem 4rem 5rem; }
+      .hero-headline { font-size: clamp(9rem, 22vw, 22rem); }
+      .hero-bottom { flex-direction: row; align-items: flex-end; justify-content: space-between; }
+      .hero-desc { max-width: 380px; }
+      .hero-cta { align-self: auto; }
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-strip {
+      background: var(--black);
+      border-top: 1px solid var(--gray-dark);
+      border-bottom: 1px solid var(--gray-dark);
+      overflow: hidden;
+      padding: 1rem 0;
+    }
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      animation: marqueeRun 24s linear infinite;
+      width: max-content;
+    }
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 0 2rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--concrete);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .marquee-dot {
+      width: 4px; height: 4px;
+      background: var(--concrete);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    @keyframes marqueeRun {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--white);
+      padding: 6rem 1.5rem;
+      overflow: hidden;
+    }
+    .about-inner { max-width: 1200px; margin: 0 auto; }
+    .sec-label {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 3rem;
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    .about-ghost-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(5rem, 20vw, 13rem);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      color: var(--gray-light);
+      margin-bottom: -0.5rem;
+    }
+    .about-heading {
+      font-family: 'IBM Plex Sans Thai', 'Barlow Condensed', sans-serif;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.5;
+      color: var(--black);
+      margin-bottom: 1.4rem;
+    }
+    .about-body {
+      font-size: 0.95rem;
+      color: var(--gray-dark);
+      line-height: 1.95;
+      max-width: 500px;
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(15%);
+    }
+    .about-img-tag {
+      position: absolute;
+      bottom: 1.5rem;
+      right: 0;
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.55rem 1.1rem;
+    }
+    @media (min-width: 768px) {
+      #about { padding: 9rem 4rem; }
+      .about-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 7rem;
+        align-items: center;
+      }
+      .about-img { height: 580px; }
+    }
+
+    /* ── MENU ── */
+    #menu {
+      background: var(--black);
+      padding: 6rem 0 4rem;
+      overflow: hidden;
+    }
+    .menu-hd {
+      padding: 0 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+    .menu-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(3.5rem, 12vw, 8rem);
+      line-height: 0.88;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .menu-title .outline-w {
+      -webkit-text-stroke: 2px rgba(244,242,238,0.4);
+      color: transparent;
+    }
+    .menu-scroll-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      cursor: grab;
+    }
+    .menu-scroll-wrap::-webkit-scrollbar { display: none; }
+    .menu-track {
+      display: flex;
+      gap: 2px;
+      padding: 0 1.5rem 1.5rem;
+      width: max-content;
+    }
+    .menu-card {
+      width: 260px;
+      flex-shrink: 0;
+      background: var(--gray-dark);
+      transition: transform 0.35s ease;
+    }
+    .menu-card:nth-child(odd) { background: #1c1a17; }
+    .menu-card:first-child { background: var(--white); }
+    .menu-card:hover { transform: translateY(-4px); }
+    .menu-card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(20%);
+      transition: filter 0.4s, transform 0.6s;
+    }
+    .menu-card:hover .menu-card-img { filter: grayscale(0%); transform: scale(1.03); }
+    .menu-card-body { padding: 1.4rem 1.2rem; overflow: hidden; }
+    .menu-tag {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--concrete);
+      margin-bottom: 0.4rem;
+    }
+    .menu-card:first-child .menu-tag { color: var(--gray); }
+    .menu-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.7rem;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+      color: var(--white);
+    }
+    .menu-card:first-child .menu-name { color: var(--black); }
+    .menu-desc {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      font-size: 0.8rem;
+      line-height: 1.85;
+      color: var(--concrete);
+      margin-bottom: 1rem;
+    }
+    .menu-card:first-child .menu-desc { color: var(--gray); }
+    .menu-price {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.5rem;
+      letter-spacing: -0.01em;
+      color: var(--white);
+    }
+    .menu-card:first-child .menu-price { color: var(--black); }
+    .menu-hint {
+      padding: 1.5rem 1.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+    @media (min-width: 768px) {
+      #menu { padding: 9rem 0 5rem; }
+      .menu-hd { padding: 0 4rem; }
+      .menu-track { padding: 0 4rem 2rem; }
+      .menu-card { width: 320px; }
+      .menu-card-img { height: 240px; }
+    }
+
+    /* ── STATS ── */
+    #stats {
+      background: var(--white);
+      border-top: 1px solid var(--gray-light);
+    }
+    .stats-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .stat-item {
+      padding: 3rem 1.5rem;
+      border-right: 1px solid var(--gray-light);
+      border-bottom: 1px solid var(--gray-light);
+    }
+    .stat-item:nth-child(even) { border-right: none; }
+    .stat-item:nth-child(n+3) { border-bottom: none; }
+    .stat-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(3rem, 10vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--black);
+      margin-bottom: 0.4rem;
+    }
+    .stat-label {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+    @media (min-width: 768px) {
+      .stats-grid { grid-template-columns: repeat(4, 1fr); }
+      .stat-item { padding: 4rem; }
+      .stat-item:nth-child(even) { border-right: 1px solid var(--gray-light); }
+      .stat-item:nth-child(n+3) { border-bottom: 1px solid var(--gray-light); }
+      .stat-item:last-child { border-right: none; border-bottom: none; }
+      .stat-item:nth-child(3) { border-bottom: none; }
+    }
+
+    /* ── ATMOSPHERE ── */
+    #atmosphere {
+      background: var(--black);
+      overflow: hidden;
+    }
+    .atm-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+    .atm-cell { position: relative; overflow: hidden; }
+    .atm-cell img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(25%);
+      transition: transform 0.6s ease, filter 0.4s;
+    }
+    .atm-cell:hover img { transform: scale(1.04); filter: grayscale(0%); }
+    .atm-label {
+      position: absolute;
+      bottom: 1.2rem;
+      left: 1.2rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: rgba(10,10,10,0.55);
+      padding: 0.25rem 0.65rem;
+    }
+    .atm-text {
+      background: var(--white);
+      padding: 4rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .atm-heading {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.5rem, 9vw, 5rem);
+      line-height: 0.92;
+      letter-spacing: -0.025em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 1.4rem;
+    }
+    .atm-body {
+      font-size: 0.92rem;
+      color: var(--gray-dark);
+      line-height: 1.95;
+      max-width: 360px;
+    }
+    @media (min-width: 768px) {
+      .atm-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 360px 360px;
+      }
+      .atm-cell img { height: 100%; }
+      .atm-cell.span2 { grid-row: 1 / 3; }
+      .atm-text { padding: 4rem 3rem; }
+    }
+
+    /* ── CRAFT ── */
+    #craft {
+      background: var(--white);
+      padding: 6rem 1.5rem;
+    }
+    .craft-inner { max-width: 1200px; margin: 0 auto; }
+    .craft-big {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(4rem, 14vw, 10rem);
+      line-height: 0.88;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 4rem;
+    }
+    .craft-big .outline-b {
+      -webkit-text-stroke: 2px var(--black);
+      color: transparent;
+    }
+    .craft-steps {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .craft-step {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 1.5rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--gray-light);
+      align-items: start;
+    }
+    .craft-step:last-child { border-bottom: none; }
+    .step-n {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 2.2rem;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--gray-light);
+    }
+    .step-h {
+      font-family: 'IBM Plex Sans Thai', 'Barlow Condensed', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      line-height: 1.5;
+      color: var(--black);
+      margin-bottom: 0.4rem;
+    }
+    .step-p {
+      font-size: 0.85rem;
+      color: var(--gray);
+      line-height: 1.9;
+    }
+    @media (min-width: 768px) {
+      #craft { padding: 9rem 4rem; }
+      .craft-steps {
+        grid-template-columns: 1fr 1fr;
+        gap: 0 5rem;
+      }
+      .craft-step:nth-child(3) { border-bottom: none; }
+    }
+
+    /* ── VISIT ── */
+    #visit {
+      background: var(--black);
+      padding: 6rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .visit-ghost {
+      position: absolute;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(6rem, 28vw, 20rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.025);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+    .visit-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .visit-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4rem;
+    }
+    .hours-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--gray-dark);
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hday {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      font-size: 0.88rem;
+      color: var(--concrete);
+    }
+    .htime {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--white);
+      letter-spacing: -0.01em;
+    }
+    .addr-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    .addr-text {
+      font-size: 0.92rem;
+      color: var(--concrete);
+      line-height: 2;
+      margin-bottom: 2rem;
+    }
+    .visit-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid var(--concrete);
+      color: var(--white);
+      padding: 0.85rem 1.6rem;
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      min-height: 44px;
+      transition: background 0.3s, border-color 0.3s, color 0.3s;
+    }
+    .visit-btn:hover { background: var(--white); color: var(--black); border-color: var(--white); }
+    @media (min-width: 768px) {
+      #visit { padding: 9rem 4rem; }
+      .visit-grid { grid-template-columns: 1fr 1fr; gap: 7rem; }
+    }
+
+    /* ── FOOTER ── */
+    #footer {
+      background: var(--black);
+      border-top: 1px solid var(--gray-dark);
+      padding: 3rem 1.5rem;
+    }
+    .footer-top {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+    .foot-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 2.8rem;
+      color: var(--white);
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    .foot-tagline {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--concrete);
+      margin-top: 0.3rem;
+    }
+    .foot-links {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem 2rem;
+    }
+    .foot-links a {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--concrete);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .foot-links a:hover { color: var(--white); }
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid var(--gray-dark);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .foot-copy {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      color: var(--gray);
+    }
+    @media (min-width: 768px) {
+      #footer { padding: 4rem 4rem; }
+      .footer-top { flex-direction: row; justify-content: space-between; align-items: flex-start; }
+      .footer-bottom { flex-direction: row; justify-content: space-between; }
+    }
+
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease-out, transform 0.65s ease-out;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: 0.1s; }
+    .d2 { transition-delay: 0.2s; }
+    .d3 { transition-delay: 0.3s; }
+    .d4 { transition-delay: 0.4s; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">361</a>
+  <ul class="nav-links">
+    <li><a href="#menu" data-lang-th="เมนู" data-lang-en="Menu">เมนู</a></li>
+    <li><a href="#about" data-lang-th="เกี่ยวกับเรา" data-lang-en="About">เกี่ยวกับเรา</a></li>
+    <li><a href="#atmosphere" data-lang-th="บรรยากาศ" data-lang-en="Space">บรรยากาศ</a></li>
+    <li><a href="#visit" data-lang-th="มาเยือน" data-lang-en="Visit">มาเยือน</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-sw">
+      <i data-lucide="globe" width="14" height="14"></i>
+      <span class="lang-sw__label">TH</span>
+    </div>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#menu" data-lang-th="เมนู" data-lang-en="Menu">เมนู</a>
+  <a href="#about" data-lang-th="เกี่ยวกับเรา" data-lang-en="About">เกี่ยวกับเรา</a>
+  <a href="#atmosphere" data-lang-th="บรรยากาศ" data-lang-en="Space">บรรยากาศ</a>
+  <a href="#visit" data-lang-th="มาเยือน" data-lang-en="Visit">มาเยือน</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <img id="heroImg"
+    src="https://images.unsplash.com/photo-1565650839149-2c48a094196c?w=1600&h=900&fit=crop"
+    alt="361 Cafe interior — round tables and leather sofas"
+    class="hero-img">
+  <div class="hero-split"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow" data-lang-th="กาแฟ · ความงาม · ความเงียบ" data-lang-en="Coffee · Beauty · Stillness">กาแฟ · ความงาม · ความเงียบ</p>
+    <div class="hero-headline">
+      <div>361</div>
+      <div class="outline">CAFE</div>
+    </div>
+    <div class="hero-bottom">
+      <p class="hero-desc" data-lang-th="พื้นที่ที่เข้าใจคุณ — กาแฟชงด้วยใจ บรรยากาศออกแบบมาเพื่อความเงียบสงบ" data-lang-en="A space that understands you — coffee crafted with intention, atmosphere designed for stillness">พื้นที่ที่เข้าใจคุณ — กาแฟชงด้วยใจ บรรยากาศออกแบบมาเพื่อความเงียบสงบ</p>
+      <a href="#menu" class="hero-cta">
+        <i data-lucide="arrow-right" width="14" height="14"></i>
+        <span data-lang-th="ดูเมนู" data-lang-en="Explore Menu">ดูเมนู</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span class="marquee-item"><span class="marquee-dot"></span><span data-lang-th="คาเฟ่โมเดิร์น" data-lang-en="Modern Cafe">คาเฟ่โมเดิร์น</span></span>
+    <span class="marquee-item"><span class="marquee-dot"></span><span data-lang-th="กาแฟซิงเกิลออริจิน" data-lang-en="Single Origin Coffee">กาแฟซิงเกิลออริจิน</span></span>
+    <span class="marquee-item"><span class="marquee-dot"></span><span data-lang-th="เปิดทุกวัน" data-lang-en="Open Every Day">เปิดทุกวัน</span></span>
+    <span class="marquee-item"><span class="marquee-dot"></span><span data-lang-th="ดีไซน์ขาวดำ" data-lang-en="Black & White Design">ดีไซน์ขาวดำ</span></span>
+    <span class="marquee-item"><span class="marquee-dot"></span><span data-lang-th="ใจกลางสีลม" data-lang-en="Silom City Center">ใจกลางสีลม</span></span>
+    <span class="marquee-item"><span class="marquee-dot"></span><span data-lang-th="บาริสต้ามืออาชีพ" data-lang-en="Professional Baristas">บาริสต้ามืออาชีพ</span></span>
+    <!-- duplicate for loop -->
+    <span class="marquee-item"><span class="marquee-dot"></span><span data-lang-th="คาเฟ่โมเดิร์น" data-lang-en="Modern Cafe">คาเฟ่โมเดิร์น</span></span>
+    <span class="marquee-item"><span class="marquee-dot"></span><span data-lang-th="กาแฟซิงเกิลออริจิน" data-lang-en="Single Origin Coffee">กาแฟซิงเกิลออริจิน</span></span>
+    <span class="marquee-item"><span class="marquee-dot"></span><span data-lang-th="เปิดทุกวัน" data-lang-en="Open Every Day">เปิดทุกวัน</span></span>
+    <span class="marquee-item"><span class="marquee-dot"></span><span data-lang-th="ดีไซน์ขาวดำ" data-lang-en="Black & White Design">ดีไซน์ขาวดำ</span></span>
+    <span class="marquee-item"><span class="marquee-dot"></span><span data-lang-th="ใจกลางสีลม" data-lang-en="Silom City Center">ใจกลางสีลม</span></span>
+    <span class="marquee-item"><span class="marquee-dot"></span><span data-lang-th="บาริสต้ามืออาชีพ" data-lang-en="Professional Baristas">บาริสต้ามืออาชีพ</span></span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <p class="sec-label reveal" data-lang-th="01 — เกี่ยวกับเรา" data-lang-en="01 — About Us">01 — เกี่ยวกับเรา</p>
+    <div class="about-grid">
+      <div>
+        <div class="about-ghost-num reveal">361</div>
+        <h2 class="about-heading reveal d1" data-lang-th="มากกว่าแค่กาแฟ" data-lang-en="More Than Just Coffee">มากกว่าแค่กาแฟ</h2>
+        <p class="about-body reveal d2" data-lang-th="361 Cafe เกิดขึ้นจากความเชื่อว่าคาเฟ่ที่ดีควรเป็นพื้นที่มากกว่าแค่จุดดื่มกาแฟ เราออกแบบทุกอย่างด้วยความตั้งใจ — ตั้งแต่เมล็ดกาแฟที่คัดสรรโดยตรงจากเกษตรกร ไปจนถึงแสงไฟ เสียงเพลง และกลิ่นอายของร้านที่ผ่อนคลาย ชื่อ 361 คือเตือนใจว่านอกจาก 360 องศาของชีวิตประจำวัน ยังมีอีกหนึ่งองศาพิเศษที่คุณสมควรได้รับ" data-lang-en="361 Cafe was built on the belief that a truly great cafe is more than a place to drink. We design everything with intention — from beans sourced directly from farmers, to the lighting, music, and atmosphere. The name 361 is a reminder: beyond the 360 degrees of daily life, there is one extra degree — one that belongs entirely to you.">361 Cafe เกิดขึ้นจากความเชื่อว่าคาเฟ่ที่ดีควรเป็นพื้นที่มากกว่าแค่จุดดื่มกาแฟ เราออกแบบทุกอย่างด้วยความตั้งใจ — ตั้งแต่เมล็ดกาแฟที่คัดสรรโดยตรงจากเกษตรกร ไปจนถึงแสงไฟ เสียงเพลง และกลิ่นอายของร้านที่ผ่อนคลาย ชื่อ 361 คือเตือนใจว่านอกจาก 360 องศาของชีวิตประจำวัน ยังมีอีกหนึ่งองศาพิเศษที่คุณสมควรได้รับ</p>
+      </div>
+      <div class="about-img-wrap reveal d1">
+        <img
+          src="https://images.unsplash.com/photo-1495862433577-132cf20d7902?w=700&h=900&fit=crop"
+          alt="Barista carefully pouring coffee"
+          class="about-img">
+        <div class="about-img-tag" data-lang-th="ฝีมือบาริสต้า" data-lang-en="Barista Craft">ฝีมือบาริสต้า</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="menu-hd">
+    <p class="sec-label reveal" style="color:var(--concrete)" data-lang-th="02 — เมนูของเรา" data-lang-en="02 — Our Menu">02 — เมนูของเรา</p>
+    <h2 class="menu-title reveal d1">
+      <span data-lang-th="ลิ้ม" data-lang-en="Taste">ลิ้ม</span><br>
+      <span class="outline-w" data-lang-th="รส" data-lang-en="Every Cup">รส</span>
+    </h2>
+  </div>
+  <div class="menu-scroll-wrap" id="menuWrap">
+    <div class="menu-track">
+      <div class="menu-card reveal">
+        <img src="https://images.unsplash.com/photo-1559001724-fbad036dbc9e?w=400&h=240&fit=crop" alt="Latte art in white cup" class="menu-card-img">
+        <div class="menu-card-body">
+          <p class="menu-tag" data-lang-th="ยอดนิยม" data-lang-en="Signature">ยอดนิยม</p>
+          <h3 class="menu-name">Black Latte</h3>
+          <p class="menu-desc" data-lang-th="ลาเต้เข้มข้น เอสเปรสโซดับเบิล นมสดทอมพ์ละเอียด" data-lang-en="Rich double espresso latte with expertly steamed whole milk">ลาเต้เข้มข้น เอสเปรสโซดับเบิล นมสดทอมพ์ละเอียด</p>
+          <p class="menu-price">฿90</p>
+        </div>
+      </div>
+      <div class="menu-card reveal d1">
+        <img src="https://images.unsplash.com/photo-1519333796630-4b7d19ad1bb3?w=400&h=240&fit=crop" alt="Espresso in white cup on saucer" class="menu-card-img">
+        <div class="menu-card-body">
+          <p class="menu-tag" data-lang-th="คลาสสิก" data-lang-en="Classic">คลาสสิก</p>
+          <h3 class="menu-name">Espresso</h3>
+          <p class="menu-desc" data-lang-th="เอสเปรสโซบริสุทธิ์ เมล็ดซิงเกิลออริจินจากเชียงราย" data-lang-en="Pure espresso from single-origin Chiang Rai highlands">เอสเปรสโซบริสุทธิ์ เมล็ดซิงเกิลออริจินจากเชียงราย</p>
+          <p class="menu-price">฿70</p>
+        </div>
+      </div>
+      <div class="menu-card reveal d2">
+        <img src="https://images.unsplash.com/photo-1685644291576-ea3d97fb0a67?w=400&h=240&fit=crop" alt="Coffee on ceramic saucer" class="menu-card-img">
+        <div class="menu-card-body">
+          <p class="menu-tag" data-lang-th="ฤดูกาล" data-lang-en="Seasonal">ฤดูกาล</p>
+          <h3 class="menu-name">Concrete</h3>
+          <p class="menu-desc" data-lang-th="โคลด์บรูว์แช่ 18 ชม. ผสมนมโอ๊ต รสลึกนุ่มนวล" data-lang-en="18-hour cold brew with oat milk — smooth, earthy depth">โคลด์บรูว์แช่ 18 ชม. ผสมนมโอ๊ต รสลึกนุ่มนวล</p>
+          <p class="menu-price">฿100</p>
+        </div>
+      </div>
+      <div class="menu-card reveal d3">
+        <img src="https://images.unsplash.com/photo-1629991848910-2ab88d9cc52f?w=400&h=240&fit=crop" alt="White ceramic coffee mug" class="menu-card-img">
+        <div class="menu-card-body">
+          <p class="menu-tag" data-lang-th="ใหม่" data-lang-en="New">ใหม่</p>
+          <h3 class="menu-name">White 361</h3>
+          <p class="menu-desc" data-lang-th="แฟลตไวท์สไตล์ออสเตรเลีย นมออร์แกนิก โฟมเนียน" data-lang-en="Australian-style flat white with organic milk and silky microfoam">แฟลตไวท์สไตล์ออสเตรเลีย นมออร์แกนิก โฟมเนียน</p>
+          <p class="menu-price">฿95</p>
+        </div>
+      </div>
+      <div class="menu-card reveal d4">
+        <img src="https://images.unsplash.com/photo-1540965555-ef9a836372ed?w=400&h=240&fit=crop" alt="Brown coffee beans up close" class="menu-card-img">
+        <div class="menu-card-body">
+          <p class="menu-tag" data-lang-th="พรีเมียม" data-lang-en="Specialty">พรีเมียม</p>
+          <h3 class="menu-name">Pour Over</h3>
+          <p class="menu-desc" data-lang-th="ดริปมือ คัดเมล็ดสดใหม่ ชงตามออร์เดอร์ทีละแก้ว" data-lang-en="Hand-drip, fresh-roasted, brewed to order one cup at a time">ดริปมือ คัดเมล็ดสดใหม่ ชงตามออร์เดอร์ทีละแก้ว</p>
+          <p class="menu-price">฿120</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="menu-hint">
+    <i data-lucide="move-right" width="15" height="15" style="color:var(--gray)"></i>
+    <span data-lang-th="เลื่อนเพื่อดูเพิ่มเติม" data-lang-en="Drag to explore">เลื่อนเพื่อดูเพิ่มเติม</span>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="stats-grid">
+    <div class="stat-item reveal">
+      <div class="stat-num">07+</div>
+      <p class="stat-label" data-lang-th="ปีแห่งประสบการณ์" data-lang-en="Years of Experience">ปีแห่งประสบการณ์</p>
+    </div>
+    <div class="stat-item reveal d1">
+      <div class="stat-num">12</div>
+      <p class="stat-label" data-lang-th="แหล่งกาแฟพรีเมียม" data-lang-en="Premium Origins">แหล่งกาแฟพรีเมียม</p>
+    </div>
+    <div class="stat-item reveal d2">
+      <div class="stat-num">500+</div>
+      <p class="stat-label" data-lang-th="ลูกค้าต่อวัน" data-lang-en="Guests Per Day">ลูกค้าต่อวัน</p>
+    </div>
+    <div class="stat-item reveal d3">
+      <div class="stat-num">01</div>
+      <p class="stat-label" data-lang-th="พื้นที่พิเศษ — สำหรับคุณ" data-lang-en="One Space — For You">พื้นที่พิเศษ — สำหรับคุณ</p>
+    </div>
+  </div>
+</section>
+
+<!-- ATMOSPHERE -->
+<section id="atmosphere">
+  <div class="atm-grid">
+    <div class="atm-cell span2 reveal">
+      <img src="https://images.unsplash.com/photo-1685602729695-0664ea4e5c06?w=700&h=740&fit=crop" alt="Cafe tables and natural light">
+      <span class="atm-label" data-lang-th="บรรยากาศ" data-lang-en="Atmosphere">บรรยากาศ</span>
+    </div>
+    <div class="atm-text reveal d1">
+      <p class="sec-label" style="color:var(--gray);margin-bottom:1rem" data-lang-th="03 — พื้นที่ของเรา" data-lang-en="03 — Our Space">03 — พื้นที่ของเรา</p>
+      <h2 class="atm-heading" data-lang-th="ออกแบบมาเพื่อคุณ" data-lang-en="Designed For You">ออกแบบมาเพื่อคุณ</h2>
+      <p class="atm-body" data-lang-th="ทุกมุมใน 361 Cafe ถูกออกแบบอย่างพิถีพิถัน เฟอร์นิเจอร์เรียบแต่มีเสน่ห์ แสงธรรมชาติที่กรองเข้ามาพอดี เสียงเพลงแจ๊สเบาๆ ที่ไม่ขัดขวางความคิดของคุณ" data-lang-en="Every corner is designed with care. Simple yet characterful furniture, natural light filtered just so, and soft jazz that never interrupts your thoughts.">ทุกมุมใน 361 Cafe ถูกออกแบบอย่างพิถีพิถัน เฟอร์นิเจอร์เรียบแต่มีเสน่ห์ แสงธรรมชาติที่กรองเข้ามาพอดี เสียงเพลงแจ๊สเบาๆ ที่ไม่ขัดขวางความคิดของคุณ</p>
+    </div>
+    <div class="atm-cell reveal d2">
+      <img src="https://images.unsplash.com/photo-1514066558159-fc8c737ef259?w=600&h=360&fit=crop" alt="Barista pouring milk into coffee">
+      <span class="atm-label" data-lang-th="บาริสต้า" data-lang-en="Barista">บาริสต้า</span>
+    </div>
+    <div class="atm-cell reveal d3">
+      <img src="https://images.unsplash.com/photo-1630783397198-c64d9e87fb65?w=600&h=360&fit=crop" alt="Latte art close-up">
+      <span class="atm-label" data-lang-th="ลาเต้อาร์ต" data-lang-en="Latte Art">ลาเต้อาร์ต</span>
+    </div>
+  </div>
+</section>
+
+<!-- CRAFT -->
+<section id="craft">
+  <div class="craft-inner">
+    <p class="sec-label reveal" data-lang-th="04 — กระบวนการ" data-lang-en="04 — Our Process">04 — กระบวนการ</p>
+    <h2 class="craft-big reveal d1">
+      <span data-lang-th="THE" data-lang-en="THE">THE</span><br>
+      <span class="outline-b" data-lang-th="CRAFT" data-lang-en="CRAFT">CRAFT</span>
+    </h2>
+    <div class="craft-steps">
+      <div class="craft-step reveal">
+        <div class="step-n">01</div>
+        <div>
+          <h3 class="step-h" data-lang-th="คัดสรรเมล็ด" data-lang-en="Sourcing the Beans">คัดสรรเมล็ด</h3>
+          <p class="step-p" data-lang-th="เราเลือกเมล็ดกาแฟโดยตรงจากเกษตรกรในเชียงราย เชียงใหม่ และแหล่งผลิตระดับโลก เพื่อให้ได้รสชาติที่ดีที่สุด" data-lang-en="We source directly from growers in Chiang Rai, Chiang Mai, and world-class international origins for the finest flavor profile.">เราเลือกเมล็ดกาแฟโดยตรงจากเกษตรกรในเชียงราย เชียงใหม่ และแหล่งผลิตระดับโลก เพื่อให้ได้รสชาติที่ดีที่สุด</p>
+        </div>
+      </div>
+      <div class="craft-step reveal d1">
+        <div class="step-n">02</div>
+        <div>
+          <h3 class="step-h" data-lang-th="คั่วสดรายสัปดาห์" data-lang-en="Weekly Small-Batch Roasting">คั่วสดรายสัปดาห์</h3>
+          <p class="step-p" data-lang-th="เมล็ดกาแฟถูกคั่วทุกสัปดาห์ในปริมาณน้อย เพื่อคงความสดและกลิ่นหอมตามธรรมชาติ" data-lang-en="Beans are roasted weekly in small batches to preserve peak freshness and their natural aroma.">เมล็ดกาแฟถูกคั่วทุกสัปดาห์ในปริมาณน้อย เพื่อคงความสดและกลิ่นหอมตามธรรมชาติ</p>
+        </div>
+      </div>
+      <div class="craft-step reveal d2">
+        <div class="step-n">03</div>
+        <div>
+          <h3 class="step-h" data-lang-th="ชงด้วยมือทุกแก้ว" data-lang-en="Handcrafted Every Cup">ชงด้วยมือทุกแก้ว</h3>
+          <p class="step-p" data-lang-th="บาริสต้าของเราผ่านการฝึกอบรมอย่างเข้มข้น แต่ละแก้วถูกชงด้วยเทคนิคและความใส่ใจที่ไม่มีใครแทนได้" data-lang-en="Our baristas train rigorously. Every cup is made with technique and care that no machine can replicate.">บาริสต้าของเราผ่านการฝึกอบรมอย่างเข้มข้น แต่ละแก้วถูกชงด้วยเทคนิคและความใส่ใจที่ไม่มีใครแทนได้</p>
+        </div>
+      </div>
+      <div class="craft-step reveal d3">
+        <div class="step-n">04</div>
+        <div>
+          <h3 class="step-h" data-lang-th="เสิร์ฟด้วยใจ" data-lang-en="Served With Heart">เสิร์ฟด้วยใจ</h3>
+          <p class="step-p" data-lang-th="ประสบการณ์ที่ดีที่สุดคือการรู้สึกว่าได้รับการต้อนรับอย่างอบอุ่นทุกครั้งที่มาเยือน" data-lang-en="The best experience is feeling genuinely welcomed — every single time you walk through our door.">ประสบการณ์ที่ดีที่สุดคือการรู้สึกว่าได้รับการต้อนรับอย่างอบอุ่นทุกครั้งที่มาเยือน</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section id="visit">
+  <div class="visit-ghost">OPEN</div>
+  <div class="visit-inner">
+    <p class="sec-label reveal" style="color:var(--concrete)" data-lang-th="05 — มาเยือนเรา" data-lang-en="05 — Come Visit">05 — มาเยือนเรา</p>
+    <div class="visit-grid">
+      <div>
+        <h3 class="hours-title reveal" data-lang-th="เวลาเปิด–ปิด" data-lang-en="Opening Hours">เวลาเปิด–ปิด</h3>
+        <div class="hours-row reveal d1">
+          <span class="hday" data-lang-th="จันทร์ – ศุกร์" data-lang-en="Monday – Friday">จันทร์ – ศุกร์</span>
+          <span class="htime">07:00 – 20:00</span>
+        </div>
+        <div class="hours-row reveal d2">
+          <span class="hday" data-lang-th="เสาร์ – อาทิตย์" data-lang-en="Saturday – Sunday">เสาร์ – อาทิตย์</span>
+          <span class="htime">08:00 – 21:00</span>
+        </div>
+        <div class="hours-row reveal d3">
+          <span class="hday" data-lang-th="วันหยุดนักขัตฤกษ์" data-lang-en="Public Holidays">วันหยุดนักขัตฤกษ์</span>
+          <span class="htime">09:00 – 20:00</span>
+        </div>
+      </div>
+      <div>
+        <h3 class="addr-title reveal" data-lang-th="ที่อยู่" data-lang-en="Find Us">ที่อยู่</h3>
+        <p class="addr-text reveal d1" data-lang-th="361 ถนนสีลม แขวงสีลม เขตบางรัก กรุงเทพมหานคร 10500 ใกล้ BTS ช่องนนทรี" data-lang-en="361 Silom Road, Silom, Bang Rak, Bangkok 10500 — near BTS Chong Nonsi">361 ถนนสีลม แขวงสีลม เขตบางรัก กรุงเทพมหานคร 10500 ใกล้ BTS ช่องนนทรี</p>
+        <a href="#" class="visit-btn reveal d2">
+          <i data-lucide="map-pin" width="13" height="13"></i>
+          <span data-lang-th="ดูเส้นทาง" data-lang-en="Get Directions">ดูเส้นทาง</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="footer-top">
+    <div>
+      <div class="foot-logo">361</div>
+      <p class="foot-tagline" data-lang-th="กาแฟ · พื้นที่ · ความงาม" data-lang-en="Coffee · Space · Beauty">กาแฟ · พื้นที่ · ความงาม</p>
+    </div>
+    <ul class="foot-links">
+      <li><a href="#menu" data-lang-th="เมนู" data-lang-en="Menu">เมนู</a></li>
+      <li><a href="#about" data-lang-th="เกี่ยวกับเรา" data-lang-en="About">เกี่ยวกับเรา</a></li>
+      <li><a href="#atmosphere" data-lang-th="บรรยากาศ" data-lang-en="Space">บรรยากาศ</a></li>
+      <li><a href="#visit" data-lang-th="มาเยือน" data-lang-en="Visit">มาเยือน</a></li>
+      <li><a href="#" data-lang-th="Instagram" data-lang-en="Instagram">Instagram</a></li>
+    </ul>
+  </div>
+  <div class="footer-bottom">
+    <p class="foot-copy" data-lang-th="© 2026 361 Cafe สงวนสิทธิ์ทุกประการ" data-lang-en="© 2026 361 Cafe. All rights reserved.">© 2026 361 Cafe สงวนสิทธิ์ทุกประการ</p>
+    <p class="foot-copy" data-lang-th="ออกแบบด้วยความตั้งใจ กรุงเทพฯ" data-lang-en="Designed with intention, Bangkok">ออกแบบด้วยความตั้งใจ กรุงเทพฯ</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/lucide@0.460.0"></script>
+<script>lucide.createIcons();</script>
+
+<script>
+// Navbar scroll
+(function(){
+  var nav=document.getElementById('navbar');
+  window.addEventListener('scroll',function(){
+    nav.classList.toggle('scrolled',window.scrollY>60);
+  },{passive:true});
+})();
+
+// Hamburger
+(function(){
+  var btn=document.getElementById('hamburger');
+  var menu=document.getElementById('mobileMenu');
+  btn.addEventListener('click',function(){
+    btn.classList.toggle('open');
+    menu.classList.toggle('open');
+    document.body.style.overflow=menu.classList.contains('open')?'hidden':'';
+  });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){
+      btn.classList.remove('open');
+      menu.classList.remove('open');
+      document.body.style.overflow='';
+    });
+  });
+})();
+
+// Hero image slow zoom
+(function(){
+  var img=document.getElementById('heroImg');
+  function ready(){img.classList.add('loaded');}
+  if(img.complete)ready(); else img.addEventListener('load',ready);
+})();
+
+// Scroll reveal
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}
+    });
+  },{threshold:0.1});
+  els.forEach(function(el){io.observe(el);});
+})();
+
+// Drag-scroll menu
+(function(){
+  var el=document.getElementById('menuWrap');
+  var down=false,sx,sl;
+  el.addEventListener('mousedown',function(e){down=true;sx=e.pageX-el.offsetLeft;sl=el.scrollLeft;el.style.cursor='grabbing';});
+  el.addEventListener('mouseleave',function(){down=false;el.style.cursor='grab';});
+  el.addEventListener('mouseup',function(){down=false;el.style.cursor='grab';});
+  el.addEventListener('mousemove',function(e){
+    if(!down)return;e.preventDefault();
+    el.scrollLeft=sl-(e.pageX-el.offsetLeft-sx)*1.5;
+  });
+})();
+</script>
+
+<!-- Language switcher — do not modify -->
+<script>
+(function(){var K='site-lang',L=localStorage.getItem(K)||'th';function S(l){L=l;localStorage.setItem(K,l);document.documentElement.lang=l;document.querySelectorAll('[data-lang-th]').forEach(function(e){var t=e.getAttribute('data-lang-'+l);if(t!==null){e.textContent=t}});var lb=document.querySelector('.lang-sw__label');if(lb){lb.textContent=l.toUpperCase()}}var sw=document.querySelector('.lang-sw');if(sw){sw.addEventListener('click',function(){S(L==='th'?'en':'th')});sw.style.cursor='pointer'}if(L!=='th'){S(L)}})();
+</script>
+</body>
+</html>
